@@ -86,6 +86,9 @@ public class AActivity extends Activity{
 	private String SHARE_APP_TAG;
 	
 	List<Integer> listItemID = new ArrayList<Integer>();//qcl
+	
+	private String truth_table[] = new String[50];//真值表数组
+	
 		        		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,9 @@ public class AActivity extends Activity{
 		//NavigationDisplay();	
 		new UpdateTLETask().execute(4);
 		
+		for(int i=0;i<20;i++){
+			truth_table[i] = "position"+i;
+		}
 		/*SharedPreferences setting = getSharedPreferences(SHARE_APP_TAG, 0); 
         
 		Boolean user_first = setting.getBoolean("FIRST",true);  
@@ -164,9 +170,22 @@ public class AActivity extends Activity{
 		HashMap<Integer,View> map = new HashMap<Integer,View>();//qcl
 		public HightKeywordsAdapter(){  //qcl
             mChecked = new ArrayList<Boolean>();  
-            for(int i=0;i<20;i++){  
-                mChecked.add(false);  
-            }  
+                    
+            SharedPreferences settings = getSharedPreferences("setting", 0);
+            
+        	for(int i=0;i<20;i++){  	      
+        		if(settings != null){
+        			if(i == settings.getInt(truth_table[i],0)){
+        				mChecked.add(true); 
+        			}else{
+        				mChecked.add(false); 
+        			}
+        		}else{
+        			mChecked.add(false);
+        		}
+           } 
+            
+
         }
 		
 		
@@ -217,7 +236,12 @@ public class AActivity extends Activity{
                     @Override  
                     public void onClick(View v) {  
                         CheckBox cb = (CheckBox)v;    
-                        mChecked.set(p, cb.isChecked());                    
+                        mChecked.set(p, cb.isChecked());  
+
+                        SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
+                        SharedPreferences.Editor editor = settings.edit();//qcl
+                        editor.putInt(truth_table[p], p);//qcl
+                        editor.commit();
                     }  
                 });
 				
@@ -242,7 +266,7 @@ public class AActivity extends Activity{
 			Data data = dataList.get(position);
 			holder.title2.setText(data.getName());
 			holder.time.setText(data.getEn());
-			holder.checked.setChecked(mChecked.get(position));//qcl
+			holder.checked.setChecked(mChecked.get(position));//qcl		
 			return view;
 		}
 	}
@@ -285,7 +309,7 @@ public class AActivity extends Activity{
 	                    builder2.setMessage(sb.toString());  
 	                    builder2.show();  
 	                }
-	        	   
+        
 	           		break;
 	           case R.id.ButtonPrefs:
 	        	   intent.setClass(AActivity.this,SatellitesSettingActivity.class);
@@ -499,6 +523,7 @@ private void update(){
 //	 if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
 //	  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //	 }
+
 	 NavigationDisplay();	
 	 super.onResume();
 	}
