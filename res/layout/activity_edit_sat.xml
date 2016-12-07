@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+   <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="3dip" >
+
+            <Button
+                android:id="@+id/ButtonDone_a3"
+                style="@style/main_tab_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"
+                android:text="返回"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textSize="20px" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="#FFFF00" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.98"
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="卫星编辑"
+            android:textColor="@color/black"
+            android:textSize="20px" />
+    </LinearLayout> 
+    
+   <TextView
+    android:layout_width="222dp"
+    android:layout_height="wrap_content"
+    />
+   
+    <ImageButton 
+        android:id="@+id/img_btn"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:text="点击添加图片"
+        android:background="@android:color/black"/>
+    <Button 
+        android:id="@+id/btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="添加图片"
+        android:layout_gravity="center"/>
+    <EditText 
+        android:id ="@+id/et0"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:textColor="@color/black"
+		android:hint="请输入卫星名称"
+		android:textColorHint="#707070"
+		/>
+    <EditText 
+        android:id ="@+id/et1"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:textColor="@color/black"
+		android:hint="请输入卫星属性"
+		android:textColorHint="#707070"
+		/>
+    <EditText 
+        android:id ="@+id/et2"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:textColor="@color/black"
+		android:hint="请输入卫星重量"
+		android:textColorHint="#707070"
+		/>
+    <Button 
+        android:id="@+id/commit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="点击提交"
+        android:layout_gravity="center"/>
+	
+</LinearLayout>

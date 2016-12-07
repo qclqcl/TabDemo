@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffffff</color>
+    <color name="fun_bg_unpressed">#40000000</color>
+    <color name="fun_bg_pressed">#1B813E</color>
+    <color name="select_unpressed_bg">#40000000</color>
+    <color name="select_pressed_bg">#1B813E</color>
+    <color name="dark">#ff535353</color>
+    <color name="grey">#ff646e76</color>
+    <color name="lightgrey">#eeeeee</color>
+    <color name="btn_black_disable">#ffa5da90</color>
+    <color name="dialog_theme">#0024B800</color>
+    <color name="red">#fdf5e6</color>
+    <color name="green">#00ffff</color>
+    <color name="black">#000000</color>
+</resources>
