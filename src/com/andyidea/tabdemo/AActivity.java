@@ -238,10 +238,10 @@ public class AActivity extends Activity{
                         CheckBox cb = (CheckBox)v;    
                         mChecked.set(p, cb.isChecked());  
 
-                        SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
-                        SharedPreferences.Editor editor = settings.edit();//qcl
-                        editor.putInt(truth_table[p], p);//qcl
-                        editor.commit();
+//                        SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
+//                        SharedPreferences.Editor editor = settings.edit();//qcl
+//                        editor.putInt(truth_table[p], p);//qcl
+ //                       editor.commit();
                     }  
                 });
 				
@@ -287,19 +287,30 @@ public class AActivity extends Activity{
 	           case R.id.ButtonAll:
 //	        	   intent.setClass(AActivity.this,CategoriesActivity.class);
 //	        	   AActivity.this.startActivity(intent);
-	        	   
-	        	   listItemID.clear();  
-	                for(int i=0;i<mAdapter.mChecked.size();i++){  
-	                    if(mAdapter.mChecked.get(i)){  
-	                        listItemID.add(i);  
-	                    }  
-	                }  
-	        	   
-	                if(listItemID.size()==0){  
+
+	        	   listItemID.clear();
+
+	        	   SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
+	        	   SharedPreferences.Editor editor = settings.edit();//qcl
+
+	        	   for(int i=0;i<20;i++){
+	        		   editor.putInt(truth_table[i], 0);//qcl
+	        	   }
+
+	        	   for(int i=0;i<mAdapter.mChecked.size();i++){
+	                    if(mAdapter.mChecked.get(i)){
+	                    	listItemID.add(i);  
+	                        editor.putInt(truth_table[i], i);//qcl
+	                        editor.commit();
+
+	                    }
+	                }
+
+	                if(listItemID.size()==0){ 
 	                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AActivity.this);  
 	                    builder1.setMessage("没有选中任何记录");  
 	                    builder1.show();  
-	                }else{  
+	                }else{ 
 	                    StringBuilder sb = new StringBuilder();  
 	                      
 	                    for(int i=0;i<listItemID.size();i++){  
