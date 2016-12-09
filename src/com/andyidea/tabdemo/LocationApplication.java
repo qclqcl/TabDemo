@@ -32,7 +32,9 @@ public class LocationApplication extends Application {
     public String[] title = new String[200];
     public String[] TLE1 = new String[200];
     public String[] TLE2 = new String[200];
-    public int listtotal,total,delay,angle;
+    public int listtotal,total;
+    public int delay = 10;
+    public int angle = 10;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];
     public String[] settime = new String[200];

@@ -348,6 +348,7 @@ public class DActivity extends Activity{
     	int setazimuthcounter = 0;
 		
 		List<Trackdata> trackdatas = TLECompute.runPassPrediction(newTLE,gsLLA,gsElevation,timer,10,60);
+
 		dataList.clear();
 	    for(Trackdata trackdata:trackdatas)
 	    {

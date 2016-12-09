@@ -2,8 +2,13 @@ package com.andyidea.tabdemo;
 
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,11 +16,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +36,8 @@ public class PassSettingActivity extends Activity{
 	private Button Datebtn,Anglebtn;
 	private TextView et,et2;	
 	private LocationApplication myApp;
+	
+	private int qcl_delay;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,14 +93,14 @@ public class PassSettingActivity extends Activity{
 			}
 		});
 */
-		
+
 		Datebtn.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v)
             {
                 // TODO Auto-generated method stub
-                NumberPicker mPicker = new NumberPicker(PassSettingActivity.this);
+                NumberPicker mPicker = new NumberPicker(PassSettingActivity.this);       
                 mPicker.setMinValue(0);
                 mPicker.setMaxValue(10);
                 mPicker.setOnValueChangedListener(new OnValueChangeListener() {
@@ -99,7 +110,8 @@ public class PassSettingActivity extends Activity{
                     {
                         // TODO Auto-generated method stub
                         et.setText("时间:"+String.valueOf(newVal)+"天");
-                        myApp.setDelay(newVal);
+                        qcl_delay =  newVal;
+//                        myApp.setDelay(new Integer(newVal));
                     }
                 });
                 
@@ -126,7 +138,7 @@ public class PassSettingActivity extends Activity{
                     {
                         // TODO Auto-generated method stub
                         et2.setText("角度:"+String.valueOf(newVal)+"°");
-                        myApp.setAngle(newVal);
+//                        myApp.setAngle(new Integer(newVal));
                     }
                 });
                 
@@ -136,24 +148,48 @@ public class PassSettingActivity extends Activity{
                 mAlertDialog.show();
             }
         });
-		
-		
+
+
 		Savebtn.setOnClickListener(new OnClickListener() {
 				
             @Override
             public void onClick(View v)
             {
-            	SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_WORLD_READABLE);  
-                Editor editor = sharedPreferences.edit();  
+            	String delay_text = (String) et.getText().toString();
+            	String angle_text = (String) et2.getText().toString();
+            	Log.i("hhhhhhhhhhh",delay_text);
+            	
+            	delay_text=delay_text.trim();
+            	String delay_string="";
+            	if(delay_text != null && !"".equals(delay_text)){
+            		for(int i=0;i<delay_text.length();i++){
+            			if(delay_text.charAt(i)>=48 && delay_text.charAt(i)<=57){
+            				delay_string+=delay_text.charAt(i);
+            			}
+            		}
+            	}
+            	
+            	angle_text=angle_text.trim();
+            	String angle_string="";
+            	if(angle_text != null && !"".equals(angle_text)){
+            		for(int i=0;i<angle_text.length();i++){
+            			if(angle_text.charAt(i)>=48 && angle_text.charAt(i)<=57){
+            				angle_string+=angle_text.charAt(i);
+            			}
+            		}
+            	}
+            	
+            	myApp.setDelay(Integer.parseInt(delay_string));
+            	myApp.setAngle(Integer.parseInt(angle_string));
+            	
+            	SharedPreferences sharedPreferences = getSharedPreferences("test", 0);  
+            	Editor editor = sharedPreferences.edit();  
                 
-                editor.putString("Delay", String.valueOf(myApp.getDelay()));  
-                editor.putString("Angle", String.valueOf(myApp.getAngle()));  
-                editor.commit();  
+            	editor.putInt("Delay", myApp.getDelay());  
+            	editor.putInt("Angle", myApp.getAngle());  
+            	editor.commit();  
                 Toast.makeText(PassSettingActivity.this, "保存成功", Toast.LENGTH_LONG)  
                 .show();
-                //Intent intent = new Intent();
-    			//intent.setClass(PassSettingActivity.this,DActivity.class);
-    			//PassSettingActivity.this.startActivity(intent);
                 finish();
             }
         });
@@ -177,29 +213,30 @@ public class PassSettingActivity extends Activity{
 //					}
 	        	   	        	
 //	        	   finish();
-					break;    	   			        	   
+					break;  
+	           case R.id.saveBtn:
+	        	   
 			   default:
 					break;
 			}
 		}
 	}
-	
-	
+
 	@Override
 	protected void onResume() {
 
-		SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);  
-        String delay = sharedPreferences.getString("Delay", "");  
-        String angle = sharedPreferences.getString("Angle", "");
+		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);  
+        int delay = sharedPreferences.getInt("Delay", 0);  
+        int angle = sharedPreferences.getInt("Angle", 0);
 		
 //		et.setText("时间:"+String.valueOf(myApp.getDelay())+"天");
 //		et2.setText("角度:"+String.valueOf(myApp.getAngle())+"°");
 		
-		et.setText("时间:"+delay+"天");
-		et2.setText("角度:"+angle+"°");
+		et.setText("时间:"+String.valueOf(delay)+"天");
+		et2.setText("角度:"+String.valueOf(angle)+"°");
         
 	 super.onResume();
 	 
 	}
-	
+
 }
