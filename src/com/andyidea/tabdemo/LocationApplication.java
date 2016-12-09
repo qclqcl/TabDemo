@@ -32,7 +32,7 @@ public class LocationApplication extends Application {
     public String[] title = new String[200];
     public String[] TLE1 = new String[200];
     public String[] TLE2 = new String[200];
-    public int total,delay,angle;
+    public int listtotal,total,delay,angle;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];
     public String[] settime = new String[200];
@@ -48,6 +48,9 @@ public class LocationApplication extends Application {
     } 
     public String getTLE2(Integer k) {  
         return TLE2[k];  
+    }
+    public int getListTotal() {
+        return listtotal;
     }
     public int getTotal() {  
         return total;  
@@ -83,6 +86,9 @@ public class LocationApplication extends Application {
     }
     public void setTLE2(String TLE2,Integer k) {  
         this.TLE2[k] = TLE2;  
+    }
+    public void setListTotal(Integer listtotal) {
+    	this.listtotal = listtotal;
     }
     public void setTotal(Integer total) {  
         this.total = total;  

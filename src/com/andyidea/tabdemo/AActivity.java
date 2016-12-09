@@ -98,7 +98,7 @@ public class AActivity extends Activity{
 		//NavigationDisplay();	
 		new UpdateTLETask().execute(4);
 		
-		for(int i=0;i<20;i++){
+		for(int i=0;i<50;i++){
 			truth_table[i] = "position"+i;
 		}
 		/*SharedPreferences setting = getSharedPreferences(SHARE_APP_TAG, 0); 
@@ -182,11 +182,11 @@ public class AActivity extends Activity{
 		List<Boolean> mChecked;//qcl
 		HashMap<Integer,View> map = new HashMap<Integer,View>();//qcl
 		public HightKeywordsAdapter(){  //qcl
-            mChecked = new ArrayList<Boolean>();  
-                    
+            mChecked = new ArrayList<Boolean>();
+
             SharedPreferences settings = getSharedPreferences("setting", 0);
             
-        	for(int i=0;i<20;i++){  	      
+            for(int i=0;i<myApp.getListTotal();i++){
         		if(settings != null){
         			if(i == settings.getInt(truth_table[i],0)){
         				mChecked.add(true); 
@@ -306,7 +306,7 @@ public class AActivity extends Activity{
 	        	   SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
 	        	   SharedPreferences.Editor editor = settings.edit();//qcl
 
-	        	   for(int i=0;i<20;i++){
+	        	   for(int i=0;i<myApp.getListTotal();i++){
 	        		   editor.putInt(truth_table[i], 100);//qcl
 	        		   editor.commit();
 	        	   }
@@ -324,6 +324,7 @@ public class AActivity extends Activity{
 	                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AActivity.this);  
 	                    builder1.setMessage("没有选中任何记录");  
 	                    builder1.show();  
+	                    NavigationDisplay();
 	                }else{ 
 	                    StringBuilder sb = new StringBuilder();  
 	                      
@@ -333,6 +334,7 @@ public class AActivity extends Activity{
 	                    AlertDialog.Builder builder2 = new AlertDialog.Builder(AActivity.this);  
 	                    builder2.setMessage(sb.toString());  
 	                    builder2.show();  
+	                    NavigationDisplay();
 	                }
 	           		break;
 	           case R.id.ButtonPrefs:
@@ -434,6 +436,7 @@ private void update(){
 			setListener();
 			return ;
 		}
+		int listcount = 0;
 		int mycount1 = 0;
 		int mycount2 = 0;
 		int mycount3 = 0;
@@ -441,7 +444,7 @@ private void update(){
 		//清除原来list的内容
 		dataList.clear();	
 		
-		
+		SharedPreferences settings = getSharedPreferences("setting", 0);
 		
 		Cursor cursor = db.query("user", new String[]{"id","name","category","TLE1","TLE2","info","launch"}, "category=?", new String[]{"Navigation"}, null, null, null);
 		if(cursor !=null)
@@ -458,15 +461,22 @@ private void update(){
 				String info = cursor.getString(cursor.getColumnIndex("info"));
 				String launch = cursor.getString(cursor.getColumnIndex("launch"));
 				//把查询到的数据放进公共的数组中以便传递到另一activity中
+
+				listcount++;
+				if(id == settings.getInt(truth_table[id],0)){
+					myApp.setTitle(name,mycount1++);
+    				myApp.setTLE1(TLE1,mycount2++);
+    				myApp.setTLE2(TLE2,mycount3++);
+				}
+//				 myApp.setTitle(name,mycount1++);
+//				 myApp.setTLE1(TLE1,mycount2++);
+//				 myApp.setTLE2(TLE2,mycount3++);
 				
-				 myApp.setTitle(name,mycount1++);
-				 myApp.setTLE1(TLE1,mycount2++);
-				 myApp.setTLE2(TLE2,mycount3++);
-				 		
 				Data data = new Data(name,info+"\n"+launch);		
 				dataList.add(data);		
 			}
 			
+			myApp.setListTotal(new Integer(listcount));
 			myApp.setTotal(new Integer(mycount1));
 		}else
 		{
