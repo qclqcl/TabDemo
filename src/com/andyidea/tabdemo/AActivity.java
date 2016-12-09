@@ -4,11 +4,6 @@ package com.andyidea.tabdemo;
 
 import com.andyidea.tabdemo.data.Data;
 import com.andyidea.tabdemo.db.DatabaseHelper;
-
-
-
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,11 +17,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -88,8 +78,7 @@ public class AActivity extends Activity{
 	List<Integer> listItemID = new ArrayList<Integer>();//qcl
 	
 	private String truth_table[] = new String[50];//真值表数组
-	
-		        		
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -146,15 +135,39 @@ public class AActivity extends Activity{
 						Toast.LENGTH_SHORT).show();
 
 				//下面是你的其他事务逻辑
-				Intent intent = new Intent();            	
-            	intent.setClass(AActivity.this,A2Activity.class);
-            	AActivity.this.startActivity(intent); 
-				
-				mAdapter.setSelectItem(position); // 记录当前选中的item
-				myApp.counttest = position;
+//				Intent intent = new Intent();
+//				intent.setClass(AActivity.this,A2Activity.class);
+//				AActivity.this.startActivity(intent); 
+
+				mAdapter.mChecked.set(position,!mAdapter.mChecked.get(position));
+
+
+//				mAdapter.setSelectItem(position); // 记录当前选中的item
+//				myApp.counttest = position;
 				mAdapter.notifyDataSetInvalidated();	//更新UI界面
 			}
 
+		});
+//		mAdapter.setSelectItem(myApp.counttest); // 记录当前选中的item
+
+		Sats_listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean  onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Toast.makeText(getApplicationContext(), "longclick " + position,
+						Toast.LENGTH_SHORT).show();
+
+				//长按查看卫星详情
+				Intent intent = new Intent();
+				intent.setClass(AActivity.this,A2Activity.class);
+				AActivity.this.startActivity(intent); 
+
+				mAdapter.setSelectItem(position); // 记录当前选中的item
+				myApp.counttest = position;
+				mAdapter.notifyDataSetInvalidated();	//更新UI界面
+
+				return true;
+			}
 		});
 		mAdapter.setSelectItem(myApp.counttest); // 记录当前选中的item
 		
@@ -294,14 +307,15 @@ public class AActivity extends Activity{
 	        	   SharedPreferences.Editor editor = settings.edit();//qcl
 
 	        	   for(int i=0;i<20;i++){
-	        		   editor.putInt(truth_table[i], 0);//qcl
+	        		   editor.putInt(truth_table[i], 100);//qcl
+	        		   editor.commit();
 	        	   }
 
 	        	   for(int i=0;i<mAdapter.mChecked.size();i++){
 	                    if(mAdapter.mChecked.get(i)){
 	                    	listItemID.add(i);  
-	                        editor.putInt(truth_table[i], i);//qcl
-	                        editor.commit();
+	                    	editor.putInt(truth_table[i], i);//qcl
+	                    	editor.commit();
 
 	                    }
 	                }
@@ -320,7 +334,6 @@ public class AActivity extends Activity{
 	                    builder2.setMessage(sb.toString());  
 	                    builder2.show();  
 	                }
-        
 	           		break;
 	           case R.id.ButtonPrefs:
 	        	   intent.setClass(AActivity.this,SatellitesSettingActivity.class);
