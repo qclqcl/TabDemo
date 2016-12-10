@@ -562,6 +562,46 @@ private void update(){
 	 super.onResume();
 	}
 	
+	protected void onPause() {
+		listItemID.clear();
+
+		SharedPreferences settings = getSharedPreferences("setting", 0);//qcl
+		SharedPreferences.Editor editor = settings.edit();//qcl
+
+		for(int i=0;i<myApp.getListTotal();i++){
+			editor.putInt(truth_table[i], 100);//qcl
+			editor.commit();
+		}
+
+		for(int i=0;i<mAdapter.mChecked.size();i++){
+			if(mAdapter.mChecked.get(i)){
+				listItemID.add(i);
+				editor.putInt(truth_table[i], i);//qcl
+				editor.commit();
+			}
+		}
+
+		if(listItemID.size()==0){
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(AActivity.this);
+			builder1.setMessage("没有选中任何记录");
+			builder1.show();
+			NavigationDisplay();
+		}else{
+             StringBuilder sb = new StringBuilder();
+
+             for(int i=0;i<listItemID.size();i++){
+                 sb.append("ItemID="+listItemID.get(i)+" . ");
+             }
+             AlertDialog.Builder builder2 = new AlertDialog.Builder(AActivity.this);
+             builder2.setMessage(sb.toString());
+             builder2.show();
+             NavigationDisplay();
+         }
+
+        super.onPause();
+        System.out.println("LifecycleActivity onPause");
+    }
+
 	class UpdateTLETask extends AsyncTask<Integer, Void, String>
 	{
 		
