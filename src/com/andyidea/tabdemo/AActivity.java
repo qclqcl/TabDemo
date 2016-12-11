@@ -580,7 +580,8 @@ private void update(){
 				editor.commit();
 			}
 		}
-
+		NavigationDisplay();
+/*
 		if(listItemID.size()==0){
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(AActivity.this);
 			builder1.setMessage("没有选中任何记录");
@@ -597,7 +598,7 @@ private void update(){
              builder2.show();
              NavigationDisplay();
          }
-
+*/
         super.onPause();
         System.out.println("LifecycleActivity onPause");
     }
