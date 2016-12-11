@@ -87,6 +87,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text=" 其他卫星   " />
+
+    <Button
+        android:id="@+id/ButtonAddSat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=" 添加卫星   " />
 <!--     
     <Button
         android:id="@+id/ButtonCommunication"

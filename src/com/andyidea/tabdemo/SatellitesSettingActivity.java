@@ -37,6 +37,7 @@ public class SatellitesSettingActivity extends Activity{
 	private Button ButtonNavigation;
 //	private Button ButtonCommunication;
 //	private Button ButtonRemote;
+	private Button ButtonAddSat;
 	
 	//从网络中获取数据的相关变量
 	private String myurl;
@@ -57,6 +58,9 @@ public class SatellitesSettingActivity extends Activity{
 		
 		ButtonOthers = (Button)findViewById(R.id.ButtonOthers);
 		ButtonOthers.setOnClickListener(new ButtonOnClickListener());
+
+		ButtonAddSat = (Button)findViewById(R.id.ButtonAddSat);
+		ButtonAddSat.setOnClickListener(new ButtonOnClickListener());
 
 /*
 		ButtonUpdate = (Button)findViewById(R.id.ButtonUpdate);
@@ -179,7 +183,11 @@ private void update(){
 	        	   SatellitesSettingActivity.this.setResult(RESULT_OK, intent); //RESULT_OK是返回状态码
 	        	   SatellitesSettingActivity.this.finish();	
 	        	   break;
-					
+
+	           case R.id.ButtonAddSat:
+	        	   intent.setClass(SatellitesSettingActivity.this,A3Activity.class);
+	        	   SatellitesSettingActivity.this.startActivity(intent);
+	        	   break;
 /*					
 	           case R.id.ButtonCommunication: 
 	        	   Bundle bundleCommunication = new Bundle();
