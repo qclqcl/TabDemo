@@ -101,10 +101,7 @@ public class D2Activity extends Activity{
 		//gsLLA[1] = myApp.myLongitude;
 		//gsLLA[2] = myApp.myAltitude;
 //		final List<Trackdata> trackdatas = TLECompute.runPassPrediction(newTLE,gsLLA,timer,10,60);
-		//下面是数据映射关系,mFrom和mTo按顺序一一对应
-        String[] mFrom = new String[]{"title22"};
-        int[] mTo = new int[]{R.id.title22};
-		
+
 		//定时器
 		myApp.handlerD = new Handler();
 		myApp.runnableD = new Runnable() {
@@ -205,10 +202,10 @@ public class D2Activity extends Activity{
 
 				holder = new ViewHolder();
 				view = View.inflate(getApplicationContext(),
-						R.layout.item, null);
+						R.layout.item2, null);
 
-				holder.title2 = (TextView) view.findViewById(R.id.title2);
-				holder.time = (TextView) view.findViewById(R.id.time);
+				holder.pass_dur = (TextView) view.findViewById(R.id.pass_dur);
+				holder.pass_time = (TextView) view.findViewById(R.id.pass_time);
 				view.setTag(holder);
 			} else {
 				view = convertView;
@@ -217,28 +214,28 @@ public class D2Activity extends Activity{
 
 			if (position == selectItem) {	//选中状态 高亮
 				view.setBackgroundColor(Color.YELLOW);
-				holder.title2.setTextColor(Color.BLACK);
-				holder.time.setTextColor(Color.BLACK);
+				holder.pass_dur.setTextColor(Color.BLACK);
+				holder.pass_time.setTextColor(Color.BLACK);
 				//设置risetimecount
 				myApp.setrisetimecount(position);
 				
 			} else {	//正常状态
 				view.setBackgroundColor(Color.BLACK);
-				holder.title2.setTextColor(Color.WHITE);
-				holder.time.setTextColor(Color.WHITE);
+				holder.pass_dur.setTextColor(Color.WHITE);
+				holder.pass_time.setTextColor(Color.WHITE);
 			}
 
 			Data data = dataList.get(position);
-			holder.title2.setText(data.getName());
-			holder.time.setText(data.getEn());
+			holder.pass_dur.setText(data.getName());
+			holder.pass_time.setText(data.getEn());
 						
 			return view;
 		}
 	}
 
 	static class ViewHolder {
-		public TextView title2;
-		public TextView time;
+		public TextView pass_dur;
+		public TextView pass_time;
 		public CheckBox checked;
 
 	}

@@ -127,16 +127,11 @@ public class DragImageView extends ImageView {
 //		MAX_W = bitmap_W * 3;
 //		MAX_H = bitmap_H * 3;
 
-//		MIN_W = bitmap_W / 2;
-//		MIN_H = bitmap_H / 2;
-
 		MAX_W = (int) (bitmap_W * 1.2);
 		MAX_H = (int) (bitmap_H * 1.2);
-		
-		MIN_W = (int) (bitmap_W * 1.2);
-		MIN_H = (int) (bitmap_H * 1.2);
-//		MIN_W = bitmap_W ;
-//		MIN_H = bitmap_H ;
+
+		MIN_W = bitmap_W ;
+		MIN_H = bitmap_H ;
 
 	}
 
@@ -269,7 +264,7 @@ public class DragImageView extends ImageView {
 			if (Math.abs(gapLenght) > 5f) {
 				scale_temp = afterLenght / beforeLenght;// 求的缩放的比例
 
-				this.setScale(scale_temp);
+				this.setScale(scale_temp); //关闭缩放功能！！！！！！！！！！
 
 				beforeLenght = afterLenght;
 			}

@@ -132,7 +132,6 @@ public class BActivity extends Activity{
 
 		TextView0.setTextSize(10);
 		TextView1.setTextSize(10);
-		TextView0.setGravity(Gravity.CENTER);
 		TextView0.setText("      "+myApp.getTitle(myApp.counttest));
 //		Log.e("??????????????",myApp.counttest+"");
 //		Log.e("??????????????",myApp.getTotal()+"");
@@ -170,7 +169,7 @@ public class BActivity extends Activity{
 		dragImageView.setBackgroundDrawable(createDrawable('A',200,200));
 		dragImageView.setImageBitmap(bmp);
 		dragImageView.setmActivity(this);//注入Activity.
-		dragImageView.setScale(5.0f);
+//		dragImageView.setScale(5.0f);
 		// 测量状态栏高度 
 		viewTreeObserver = dragImageView.getViewTreeObserver();
 		viewTreeObserver
@@ -191,7 +190,6 @@ public class BActivity extends Activity{
 					}
 				});
 
-
 		//定时器
 		myApp.handlerB = new Handler();
 		myApp.runnableB = new Runnable() {
@@ -199,16 +197,13 @@ public class BActivity extends Activity{
 			@Override
 			public void run() {				
 
-				dragImageView.setScale(5.0f);
-
 				myApp.handlerB.postDelayed(this, 1000);		
-				
+				dragImageView.setScale(5.0f);
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));
 				
 				newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));
-				TextView0.setGravity(Gravity.CENTER);
 				TextView0.setText("      "+myApp.getTitle(myApp.counttest));
 				
 				gsLLA[0] = myApp.myLatitude;
@@ -309,9 +304,8 @@ public class BActivity extends Activity{
 	        	   	myApp.counttest = myApp.counttest-1;
 	        	   	if(myApp.counttest == -1)        	   
 	        	    	myApp.counttest = myApp.getTotal()-1;
+	        	   	TextView0.setText("      "+myApp.getTitle(myApp.counttest));
 	        	   	
-	        	    TextView0.setText(" "+myApp.getTitle(myApp.counttest));
-	        	    
         	    	newTLE= new TLE(myApp.getTitle(myApp.counttest),
 	     			myApp.getTLE1(myApp.counttest),
 	     			myApp.getTLE2(myApp.counttest));
@@ -325,8 +319,8 @@ public class BActivity extends Activity{
 	        	  
 	        	   	myApp.counttest = myApp.counttest + 1;
 	        	    if(myApp.counttest == myApp.getTotal())
-	        	    	myApp.counttest = 0;		        	    	        	          
-	        	    TextView0.setText(" "+myApp.getTitle(myApp.counttest));
+	        	    	myApp.counttest = 0;
+	        	    TextView0.setText("      "+myApp.getTitle(myApp.counttest));
 
 	       		    newTLE= new TLE(myApp.getTitle(myApp.counttest),
 	     				myApp.getTLE1(myApp.counttest),
@@ -340,7 +334,6 @@ public class BActivity extends Activity{
 	        	 //  BActivity.this.startActivity(intent);
 					break;  
 	           case R.id.Buttonback:
-	        	   //Log.e("??????????????","bbbbbbbbbbbbbbb");
 	        	   interval = -600;
 	        	   break;
 	           case R.id.Buttonnormal:

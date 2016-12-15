@@ -78,20 +78,19 @@ public class SettingTabActivity extends TabActivity implements OnCheckedChangeLi
 		TabHost localTabHost = this.settingTabHost;
 
 		localTabHost.addTab(buildTabSpec("A_TAB", R.string.main_stats,
-				R.drawable.icon_1_n, this.globalAIntent));
+				R.drawable.icon, this.globalAIntent));
 
 		localTabHost.addTab(buildTabSpec("B_TAB", R.string.main_map,
-				R.drawable.icon_2_n, this.satsBIntent));
+				R.drawable.icon, this.satsBIntent));
 
-		localTabHost.addTab(buildTabSpec("C_TAB",
-				R.string.main_sky, R.drawable.icon_3_n,
-				this.mapCIntent));
+		localTabHost.addTab(buildTabSpec("C_TAB",R.string.main_sky,
+				R.drawable.icon, this.mapCIntent));
 
 		localTabHost.addTab(buildTabSpec("D_TAB", R.string.main_pass,
-				R.drawable.icon_4_n, this.skyDIntent));
+				R.drawable.icon, this.skyDIntent));
 
 		localTabHost.addTab(buildTabSpec("MORE_TAB", R.string.main_more,
-				R.drawable.icon_5_n, this.passEIntent));
+				R.drawable.icon, this.passEIntent));
 
 	}
 	

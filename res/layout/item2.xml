@@ -2,22 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content">
-	
-	<CheckBox
-	android:id="@+id/checked2"
-	android:layout_height="wrap_content"
+
+    <ImageView
+	android:id="@+id/mark_pic"
+	android:src="@drawable/earth"
 	android:layout_width="wrap_content"
-	android:layout_alignParentLeft="true"
-	android:checked="true"
-	android:focusable="false" />
+	android:layout_height="wrap_content"
+	android:paddingLeft="8dp"
+	android:paddingTop="8dp"
+	android:gravity="center"
+	android:layout_alignParentLeft="true">
+	</ImageView>
+
 	<LinearLayout 
 		android:orientation="vertical" 
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content" 
-		android:layout_toRightOf="@id/checked2"
-		android:paddingLeft="8dp">
+		android:paddingLeft="8dp"
+		android:layout_toRightOf="@id/mark_pic">
+
 		<TextView
-			android:id="@+id/title22"
+			android:id="@+id/pass_dur"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/white"
+			android:textSize="12dp" />
+		<TextView
+			android:id="@+id/pass_time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/white"

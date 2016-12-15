@@ -2,29 +2,16 @@ package com.andyidea.tabdemo;
 
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +23,6 @@ public class PassSettingActivity extends Activity{
 	private Button Datebtn,Anglebtn;
 	private TextView et,et2;	
 	private LocationApplication myApp;
-	
-	private int qcl_delay;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -110,8 +95,6 @@ public class PassSettingActivity extends Activity{
                     {
                         // TODO Auto-generated method stub
                         et.setText("Ê±¼ä:"+String.valueOf(newVal)+"Ìì");
-                        qcl_delay =  newVal;
-//                        myApp.setDelay(new Integer(newVal));
                     }
                 });
                 

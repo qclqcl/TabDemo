@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -101,6 +102,7 @@ public class AActivity extends Activity{
 		for(int i=0;i<50;i++){
 			truth_table[i] = "position"+i;
 		}
+
 		/*SharedPreferences setting = getSharedPreferences(SHARE_APP_TAG, 0); 
         
 		Boolean user_first = setting.getBoolean("FIRST",true);  
@@ -241,8 +243,8 @@ public class AActivity extends Activity{
 						R.layout.item, null);
 
 				holder.checked = (CheckBox) view.findViewById(R.id.checked);//qcl
-				holder.title2 = (TextView) view.findViewById(R.id.title2);
-				holder.time = (TextView) view.findViewById(R.id.time);
+				holder.sat_title = (TextView) view.findViewById(R.id.sat_title);
+				holder.sat_info = (TextView) view.findViewById(R.id.sat_info);
 				final int p = position;//qcl
 				map.put(position, view);
 				holder.checked.setOnClickListener(new View.OnClickListener() {//qcl                
@@ -268,25 +270,25 @@ public class AActivity extends Activity{
 		
 			if (position == selectItem) {	//选中状态 高亮
 				view.setBackgroundColor(Color.YELLOW);
-				holder.title2.setTextColor(Color.BLACK);
-				holder.time.setTextColor(Color.BLACK);
+				holder.sat_title.setTextColor(Color.BLACK);
+				holder.sat_info.setTextColor(Color.BLACK);
 			} else {	//正常状态
 				view.setBackgroundColor(Color.BLACK);
-				holder.title2.setTextColor(Color.WHITE);
-				holder.time.setTextColor(Color.WHITE);
+				holder.sat_title.setTextColor(Color.WHITE);
+				holder.sat_info.setTextColor(Color.WHITE);
 			}
 
 			Data data = dataList.get(position);
-			holder.title2.setText(data.getName());
-			holder.time.setText(data.getEn());
+			holder.sat_title.setText(data.getName());
+			holder.sat_info.setText(data.getEn());
 			holder.checked.setChecked(mChecked.get(position));//qcl		
 			return view;
 		}
 	}
 
 	static class ViewHolder {
-		public TextView title2;
-		public TextView time;
+		public TextView sat_title;
+		public TextView sat_info;
 		public CheckBox checked;
 
 	}

@@ -47,7 +47,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
-        
+
         handler = new Handler();
 		runnable = new Runnable() {
 			@Override
@@ -56,6 +56,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				getTime();						    			    	
 			}
 		};
+
 		handler.postDelayed(runnable, 0);
         this.mAIntent = new Intent(this,AActivity.class);
         this.mBIntent = new Intent(this,BActivity.class);
@@ -171,18 +172,16 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		TabHost localTabHost = this.mTabHost;
 
 		localTabHost.addTab(buildTabSpec("A_TAB", R.string.main_stats,
-				R.drawable.icon_1_n, this.mAIntent));
+				R.drawable.icon,this.mAIntent));
 		localTabHost.addTab(buildTabSpec("B_TAB", R.string.main_map,
-				R.drawable.icon_2_n, this.mBIntent));
+				R.drawable.icon, this.mBIntent));
 		localTabHost.addTab(buildTabSpec("C_TAB",R.string.main_sky, 
-				R.drawable.icon_3_n,this.mCIntent));
+				R.drawable.icon,this.mCIntent));
 		localTabHost.addTab(buildTabSpec("D_TAB", R.string.main_pass,
-				R.drawable.icon_4_n, this.mDIntent));
+				R.drawable.icon, this.mDIntent));
 
 		//localTabHost.addTab(buildTabSpec("MORE_TAB", R.string.main_more,
 		//		R.drawable.icon_5_n, this.mEIntent));
-		
-		
 
 	}
 	
