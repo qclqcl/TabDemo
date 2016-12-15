@@ -20,12 +20,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Typeface;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -41,6 +39,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,8 +65,6 @@ public class BActivity extends Activity{
 	private int width,height;  //图片的高度和宽带
 	private Bitmap imgTemp;    //临时标记图
 	
-
-
 	//定时器的变量初始化
 //	public  Handler handlerB;
 //	public  Runnable runnableB;
@@ -77,7 +74,6 @@ public class BActivity extends Activity{
 	public Paint textPaint;
 	
 	private long exitTime = 0;
-	
 
 	private Bitmap personBitmap;
 	private Bitmap satelliteBitmap;	
@@ -123,6 +119,7 @@ public class BActivity extends Activity{
 		Buttonfast.setOnClickListener(new ButtonOnClickListener());
 		
 		
+
 		myApp = (LocationApplication)getApplication();
 		Intent intent = getIntent();
 		
@@ -147,10 +144,8 @@ public class BActivity extends Activity{
 		window_height = manager.getDefaultDisplay().getHeight();
 
 		dragImageView = (DragImageView) findViewById(R.id.div_main);
-		final Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent500,window_width, window_height);
+		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent500,window_width, window_height);
 		
-
-				
 		//关于画线的背景的设置
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
@@ -169,14 +164,13 @@ public class BActivity extends Activity{
 		imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.map);
 		width = imgMarker.getWidth();
 		height = imgMarker.getHeight();
-		
-		
+
 		initDraw();
-		
+
 		dragImageView.setBackgroundDrawable(createDrawable('A',200,200));
 		dragImageView.setImageBitmap(bmp);
 		dragImageView.setmActivity(this);//注入Activity.
-					
+		dragImageView.setScale(5.0f);
 		// 测量状态栏高度 
 		viewTreeObserver = dragImageView.getViewTreeObserver();
 		viewTreeObserver
@@ -197,14 +191,16 @@ public class BActivity extends Activity{
 					}
 				});
 
-	
-		
+
 		//定时器
 		myApp.handlerB = new Handler();
 		myApp.runnableB = new Runnable() {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {				
+
+				dragImageView.setScale(5.0f);
+
 				myApp.handlerB.postDelayed(this, 1000);		
 				
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));
@@ -379,10 +375,7 @@ public class BActivity extends Activity{
 		InputStream is = context.getResources().openRawResource(resId);
 		return BitmapFactory.decodeStream(is, null, opt);
 	}
-	
-	
-	
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	if (keyCode == KeyEvent.KEYCODE_MENU) { // 监控/拦截/屏蔽返回键

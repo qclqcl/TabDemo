@@ -168,10 +168,11 @@
             android:layout_gravity="center"         
             >
         <com.andyidea.tabdemo.image.DragImageView
-	        android:id="@+id/div_main"	        
-	        android:layout_width="wrap_content"
+	        android:id="@+id/div_main"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:gravity="center"	        	       
+	        android:scaleType="center"
+	        android:gravity="center"
 	     />
     </LinearLayout>
 

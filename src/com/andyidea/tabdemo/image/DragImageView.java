@@ -129,11 +129,14 @@ public class DragImageView extends ImageView {
 
 //		MIN_W = bitmap_W / 2;
 //		MIN_H = bitmap_H / 2;
+
+		MAX_W = (int) (bitmap_W * 1.2);
+		MAX_H = (int) (bitmap_H * 1.2);
 		
-		MAX_W = (int) (bitmap_W * 2.95);
-		MAX_H = (int) (bitmap_H * 2.95);
-		MIN_W = bitmap_W ;
-		MIN_H = bitmap_H ;
+		MIN_W = (int) (bitmap_W * 1.2);
+		MIN_H = (int) (bitmap_H * 1.2);
+//		MIN_W = bitmap_W ;
+//		MIN_H = bitmap_H ;
 
 	}
 
@@ -170,6 +173,7 @@ public class DragImageView extends ImageView {
 			break;
 		case MotionEvent.ACTION_UP:
 			mode = MODE.NONE;
+			Log.i("qq","位置为："+"("+event.getX()+" , "+event.getY()+")");
 			break;
 
 		// 多点松开
@@ -289,7 +293,7 @@ public class DragImageView extends ImageView {
 	}
 
 	/** 处理缩放 **/
-	void setScale(float scale) {
+	public void setScale(float scale) {
 //		int disX = (int) (this.getWidth() * Math.abs(1 - scale)) / 4;// 获取缩放水平距离
 //		int disY = (int) (this.getHeight() * Math.abs(1 - scale)) / 4;// 获取缩放垂直距离
 		
