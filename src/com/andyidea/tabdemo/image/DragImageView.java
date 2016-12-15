@@ -1,5 +1,7 @@
 package com.andyidea.tabdemo.image;
 
+import com.andyidea.tabdemo.LocationApplication;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -53,6 +55,8 @@ public class DragImageView extends ImageView {
 	private float beforeLenght, afterLenght;// 两触点距离
 
 	private float scale_temp;// 缩放比例
+
+	private float eventX,eventY;
 
 	/**
 	 * 模式 NONE：无 DRAG：拖拽. ZOOM:缩放
@@ -113,6 +117,19 @@ public class DragImageView extends ImageView {
         return current_Right;  
     }
 	
+	/** qcl 获取点击坐标**/
+	public void seteventX(float eventX) {
+		this.eventX = eventX;
+	}
+	public void seteventY(float eventY) {
+		this.eventY = eventY;
+	}
+	public float geteventX() {
+		return eventX;
+	}
+	public float geteventY() {
+		return eventY;
+	}
 
 	/***
 	 * 设置显示图片
@@ -157,20 +174,19 @@ public class DragImageView extends ImageView {
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
 			onTouchDown(event);
+			seteventX(event.getX());
+			seteventY(event.getY());
 			break;
 		// 多点触摸
 		case MotionEvent.ACTION_POINTER_DOWN:
 			onPointerDown(event);
 			break;
-
 		case MotionEvent.ACTION_MOVE:
 			onTouchMove(event);
 			break;
 		case MotionEvent.ACTION_UP:
 			mode = MODE.NONE;
-			Log.i("qq","位置为："+"("+event.getX()+" , "+event.getY()+")");
 			break;
-
 		// 多点松开
 		case MotionEvent.ACTION_POINTER_UP:
 			mode = MODE.NONE;

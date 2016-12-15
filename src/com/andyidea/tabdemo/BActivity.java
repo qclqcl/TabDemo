@@ -212,7 +212,7 @@ public class BActivity extends Activity{
 				timer.addSeconds(interval);
 				curlla = TLECompute.getMapLLA(newTLE,timer);
 				LLA gs = new LLA(gsLLA[0],gsLLA[1],gsLLA[2]);
-				TextView1.setText("卫星　经度:"+curlla.getLatStr()+"，"+"纬度:"+curlla.getLonStr()+"，"+"高度:"+curlla.getAltStr()+"\n"+
+				TextView1.setText("X ="+dragImageView.geteventX()+"//Y ="+dragImageView.geteventY()+"卫星　经度:"+curlla.getLatStr()+"，"+"纬度:"+curlla.getLonStr()+"，"+"高度:"+curlla.getAltStr()+"\n"+
 						"自己　经度:"+gs.getLatStr()+"，"+"纬度:"+gs.getLonStr()+"，"+"高度:"+gs.getAltStr());
 			}
 		};
