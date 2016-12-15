@@ -36,17 +36,20 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private Intent mBIntent;
 	private Intent mCIntent;
 	private Intent mDIntent;
-	//private Intent mEIntent;
-	private Button Button4;	
+	private Intent mEIntent;
+
 	private String time=null;
 
-			
+	private RadioButton RadioButtonE;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
+
+        RadioButtonE = (RadioButton) findViewById(R.id.radio_button4);
 
         handler = new Handler();
 		runnable = new Runnable() {
@@ -62,11 +65,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         this.mBIntent = new Intent(this,BActivity.class);
         this.mCIntent = new Intent(this,CActivity.class);
         this.mDIntent = new Intent(this,DActivity.class);
-        //this.mEIntent = new Intent(this,EActivity.class);
-        
-        Button4 = (Button)findViewById(R.id.radio_button4);
-        Button4.setOnClickListener(new ButtonOnClickListener());
-        
+        this.mEIntent = new Intent(this,EActivity.class);
+
         myApp = (LocationApplication)getApplication();
         
 		((RadioButton) findViewById(R.id.radio_button0))
@@ -77,9 +77,9 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		.setOnCheckedChangeListener(this);
         ((RadioButton) findViewById(R.id.radio_button3))
 		.setOnCheckedChangeListener(this);
-      //  ((RadioButton) findViewById(R.id.radio_button4))
-	  //.setOnCheckedChangeListener(this);
-        
+        ((RadioButton) findViewById(R.id.radio_button4))
+        .setOnCheckedChangeListener(this);
+
         setupIntent();
     }
     
@@ -88,26 +88,16 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		// 获取系统时间
 		Time t = new Time();
 		t.setToNow(); // 取得系统时间
-		int year = t.year;
+		int year = t.year - 2000;
 		int month = t.month + 1;
 		int date = t.monthDay;
 		int hour = t.hour; // 24小时制
 		int minute = t.minute;
 		int second = t.second;
-		time = (year+"."+month+"."+date+"\n"+hour+":"+minute+":"+second).toString();	
-		Button4.setText(time);
+		time = (year+"-"+month+"-"+date+"\n"+hour+":"+minute+":"+second).toString();
+		RadioButtonE.setText(time);
 	}
-    
-    
-   class ButtonOnClickListener implements OnClickListener{
-		@Override
-		public void onClick(View v) {	
-			Intent intent = new Intent();
-	        intent.setClass(MainTabActivity.this,EActivity.class);
-	        MainTabActivity.this.startActivity(intent);	   	           		
-		}		
-	}
- 
+
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				
@@ -158,9 +148,9 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				}
 				
 				break;
-			//case R.id.radio_button4:
-			//	this.mTabHost.setCurrentTabByTag("MORE_TAB");												
-			//	break;
+			case R.id.radio_button4:
+				this.mTabHost.setCurrentTabByTag("E_TAB");
+				break;
 			}						
 		}		
 	}
@@ -179,10 +169,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				R.drawable.icon,this.mCIntent));
 		localTabHost.addTab(buildTabSpec("D_TAB", R.string.main_pass,
 				R.drawable.icon, this.mDIntent));
-
-		//localTabHost.addTab(buildTabSpec("MORE_TAB", R.string.main_more,
-		//		R.drawable.icon_5_n, this.mEIntent));
-
+		localTabHost.addTab(buildTabSpec("E_TAB", R.string.main_more,
+				R.drawable.icon, this.mEIntent));
 	}
 	
 	private TabHost.TabSpec buildTabSpec(String tag, int resLabel, int resIcon,
@@ -202,10 +190,5 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	}  
 	return super.onKeyDown(keyCode, event);
 	}
-	
-	
-	
-	
-	
-	
+
 }

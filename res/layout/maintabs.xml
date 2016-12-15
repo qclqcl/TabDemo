@@ -41,18 +41,12 @@
                 <RadioButton  
                     android:id="@id/radio_button3" 
                     android:text="@string/main_pass"                      
-                    style="@style/main_tab_bottom" />  
-               <!--         
-                <RadioButton  
-                    android:id="@id/radio_button4" 
-                    android:text="@string/main_more"                   
+                    style="@style/main_tab_bottom" />            
+                <RadioButton
+                    android:id="@id/radio_button4"
+                    android:text="@string/main_more"
                     style="@style/main_tab_bottom" />
-                -->   
-                <Button  
-                    android:id="@id/radio_button4" 
-                    android:textSize="10sp"
-                    android:background="@drawable/home_btn_bg_n"
-                    android:textColor="@color/white" />                                        
+
             </RadioGroup>
     </LinearLayout> 
 </TabHost>
