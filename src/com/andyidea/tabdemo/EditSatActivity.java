@@ -37,7 +37,6 @@ import android.provider.MediaStore;
 public class EditSatActivity extends Activity {
 
 	private ImageButton img_btn;
-	private Button btn;
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
 	private static final int PHOTO_REQUEST_GALLERY = 2;
 	private static final int PHOTO_REQUEST_CUT = 3;
@@ -56,10 +55,8 @@ public class EditSatActivity extends Activity {
 
 	private void init() {
 		img_btn = (ImageButton) findViewById(R.id.img_btn);
-		btn = (Button) findViewById(R.id.btn);
-
 		img_btn.setOnClickListener(new ButtonOnClickListener());
-		btn.setOnClickListener(new ButtonOnClickListener());
+		
 	}
 
 	class ButtonOnClickListener implements OnClickListener{
@@ -71,10 +68,7 @@ public class EditSatActivity extends Activity {
 	           case R.id.img_btn: 
 	        	   showDialog();
 					break;
-	           case R.id.btn:	        	  	        
-	        	   showDialog();    	   	        	   	        		   	         	   				   				   				   				   			
-					break;
-
+					
 			   default:
 					break;
 			}
@@ -117,12 +111,12 @@ public class EditSatActivity extends Activity {
 
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:
-			startPhotoZoom(Uri.fromFile(tempFile), 150,150);
+			startPhotoZoom(Uri.fromFile(tempFile), 400,300);
 			break;
 
 		case PHOTO_REQUEST_GALLERY:
 			if (data != null)
-				startPhotoZoom(data.getData(), 150,150);
+				startPhotoZoom(data.getData(), 400,300);
 			break;
 
 		case PHOTO_REQUEST_CUT:
@@ -143,8 +137,8 @@ public class EditSatActivity extends Activity {
 		intent.putExtra("crop", "true");
 
 		// aspectX aspectY 是宽高的比例
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
+//		intent.putExtra("aspectX", 1);
+//		intent.putExtra("aspectY", 1);
 
 		// outputX,outputY 是剪裁图片的宽高
 		intent.putExtra("outputX", Xsize);
