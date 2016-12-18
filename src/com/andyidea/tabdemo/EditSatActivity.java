@@ -1,6 +1,9 @@
 package com.andyidea.tabdemo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -114,12 +117,12 @@ public class EditSatActivity extends Activity {
 
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:
-			startPhotoZoom(Uri.fromFile(tempFile), 150);
+			startPhotoZoom(Uri.fromFile(tempFile), 150,150);
 			break;
 
 		case PHOTO_REQUEST_GALLERY:
 			if (data != null)
-				startPhotoZoom(data.getData(), 150);
+				startPhotoZoom(data.getData(), 150,150);
 			break;
 
 		case PHOTO_REQUEST_CUT:
@@ -132,40 +135,68 @@ public class EditSatActivity extends Activity {
 
 	}
 
-	private void startPhotoZoom(Uri uri, int size) {
+	private void startPhotoZoom(Uri uri, int Xsize, int Ysize) {
 		 Log.e("zoom", "begin");
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
-		// crop涓簍rue鏄缃湪寮�惎鐨刬ntent涓缃樉绀虹殑view鍙互鍓
+		// crop为true是设置在开启的intent中设置显示的view可以剪裁
 		intent.putExtra("crop", "true");
 
-		// aspectX aspectY 鏄楂樼殑姣斾緥
+		// aspectX aspectY 是宽高的比例
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 
-		// outputX,outputY 鏄壀瑁佸浘鐗囩殑瀹介珮
-		intent.putExtra("outputX", size);
-		intent.putExtra("outputY", size);
+		// outputX,outputY 是剪裁图片的宽高
+		intent.putExtra("outputX", Xsize);
+		intent.putExtra("outputY", Ysize);
 		intent.putExtra("return-data", true);
 		 Log.e("zoom", "begin1");
+
 		startActivityForResult(intent, PHOTO_REQUEST_CUT);
 	}
 
-	//灏嗚繘琛屽壀瑁佸悗鐨勫浘鐗囨樉绀哄埌UI鐣岄潰涓�	
+	//将进行剪裁后的图片显示到UI界面上
 	private void setPicToView(Intent picdata) {
 		Bundle bundle = picdata.getExtras();
 		if (bundle != null) {
 			Bitmap photo = bundle.getParcelable("data");
+
+			Date date = new Date(System.currentTimeMillis());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
+			Log.e("save",dateFormat.format(date));
+			saveMyBitmap(photo,dateFormat.format(date));//将图片进行存储！！！！！！！！！
+			
 			Drawable drawable = new BitmapDrawable(photo);
 			img_btn.setBackgroundDrawable(drawable);
 		}
 	}
 
-	// 浣跨敤绯荤粺褰撳墠鏃ユ湡鍔犱互璋冩暣浣滀负鐓х墖鐨勫悕绉�	
+	//使用系统当前日期加以调整作为照片的名称
 	private String getPhotoFileName() {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
+	}
+
+	 public void saveMyBitmap(Bitmap mBitmap,String bitName){
+        File f = new File( "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg");
+        FileOutputStream fOut = null;
+        try {
+                fOut = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+                e.printStackTrace();
+        }
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+        try {
+                fOut.flush();
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+        try {
+                fOut.close();
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
 	}
 
 
