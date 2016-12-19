@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.andyidea.tabdemo.A3Activity.ButtonOnClickListener;
 
@@ -30,18 +32,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.os.Build;
 import android.provider.MediaStore;
 
 public class EditSatActivity extends Activity {
 
 	private ImageButton img_btn;
+	private Button submit_btn;
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
 	private static final int PHOTO_REQUEST_GALLERY = 2;
 	private static final int PHOTO_REQUEST_CUT = 3;
 	
 	File tempFile = new File(Environment.getExternalStorageDirectory(),getPhotoFileName());
+	public static final String url = "http://app.api.fx.yijia.com/faxing/json_user.php?action=user_file_upload";//要上传的地址测试用
+	public String img_src;
+	
+	private EditText Sat_namecn,Sat_name,Sat_satno,Sat_typename,Sat_valid,Sat_weight,Sat_launch,Sat_launchtime,Sat_tle1,Sat_tle2,Sat_info;
+	String result;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,21 @@ public class EditSatActivity extends Activity {
 		img_btn = (ImageButton) findViewById(R.id.img_btn);
 		img_btn.setOnClickListener(new ButtonOnClickListener());
 		
+		submit_btn = (Button) findViewById(R.id.submit);
+		submit_btn.setOnClickListener(new ButtonOnClickListener());
+		
+		Sat_namecn = (EditText)findViewById(R.id.sat_namecn);
+		Sat_name = (EditText)findViewById(R.id.sat_name);
+		Sat_satno = (EditText)findViewById(R.id.sat_satno);
+		Sat_typename = (EditText)findViewById(R.id.sat_typename);
+		Sat_valid = (EditText)findViewById(R.id.sat_valid);
+		Sat_weight = (EditText)findViewById(R.id.sat_weight);
+		Sat_launch = (EditText)findViewById(R.id.sat_launch);
+		Sat_launchtime = (EditText)findViewById(R.id.sat_launchtime);
+		Sat_tle1 = (EditText)findViewById(R.id.sat_tle1);
+		Sat_tle2 = (EditText)findViewById(R.id.sat_tle2);
+		Sat_info = (EditText)findViewById(R.id.sat_info);
+		
 	}
 
 	class ButtonOnClickListener implements OnClickListener{
@@ -67,6 +92,38 @@ public class EditSatActivity extends Activity {
 			switch (v.getId()) {				          	           		
 	           case R.id.img_btn: 
 	        	   showDialog();
+					break;
+				
+	           case R.id.submit: 
+	        	   if(img_src == null){
+						Toast.makeText(getApplicationContext(), "请选择一张图片 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_namecn.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星名称 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_name.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星英文名称 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_satno.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星编号 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_typename.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星类型",Toast.LENGTH_SHORT).show();
+					}else if(Sat_valid.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星是否在轨 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_weight.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星重量",Toast.LENGTH_SHORT).show();
+					}else if(Sat_launch.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星发射工具",Toast.LENGTH_SHORT).show();
+					}else if(Sat_launchtime.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星发射时间",Toast.LENGTH_SHORT).show();
+					}else if(Sat_tle1.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星tle1",Toast.LENGTH_SHORT).show();
+					}else if(Sat_tle2.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星tle2 ",Toast.LENGTH_SHORT).show();
+					}else if(Sat_info.getText().toString().length()==0){
+						Toast.makeText(getApplicationContext(), "请输入卫星资料 ",Toast.LENGTH_SHORT).show();
+					}else{
+						submit_satinfo();
+						Toast.makeText(getApplicationContext(), "上传成功",Toast.LENGTH_SHORT).show();
+						result = null;
+					}
 					break;
 					
 			   default:
@@ -144,7 +201,7 @@ public class EditSatActivity extends Activity {
 		intent.putExtra("outputX", Xsize);
 		intent.putExtra("outputY", Ysize);
 		intent.putExtra("return-data", true);
-		 Log.e("zoom", "begin1");
+		Log.e("zoom", "begin1");
 
 		startActivityForResult(intent, PHOTO_REQUEST_CUT);
 	}
@@ -173,7 +230,10 @@ public class EditSatActivity extends Activity {
 	}
 
 	 public void saveMyBitmap(Bitmap mBitmap,String bitName){
-        File f = new File( "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg");
+
+		img_src = "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg";
+//        File f = new File( "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg");
+		File f = new File(img_src);
         FileOutputStream fOut = null;
         try {
                 fOut = new FileOutputStream(f);
@@ -192,6 +252,35 @@ public class EditSatActivity extends Activity {
                 e.printStackTrace();
         }
 	}
+
+	 public void submit_satinfo(){
+		 // TODO Auto-generated method stub
+			new Thread() {
+				public void run() {
+//					File f = new File("/storage/emulated/0/DCIM/Screenshots/IMG_20161219_180923.jpg");
+					File f = new File(img_src);
+					final Map<String, String> map = new HashMap<String, String>();
+					map.put("namecn", Sat_namecn.getText().toString());
+					map.put("name", Sat_name.getText().toString());
+					map.put("satno", Sat_satno.getText().toString());
+					map.put("typename", Sat_typename.getText().toString());
+					map.put("valid", Sat_valid.getText().toString());
+					map.put("weight", Sat_weight.getText().toString());
+					map.put("launch", Sat_launch.getText().toString());
+					map.put("launchtime", Sat_launchtime.getText().toString());
+					map.put("tle1", Sat_tle1.getText().toString());
+					map.put("tle2", Sat_tle2.getText().toString());
+					map.put("info", Sat_info.getText().toString());
+					try {
+						result = CommantUtil.uploadSubmit(url, map, f);
+						System.out.println("result:" + result);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}.start();
+	 }
 
 
 }
