@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -101,7 +103,14 @@ public class PassSettingActivity extends Activity{
                 
                 AlertDialog mAlertDialog = new AlertDialog.Builder(PassSettingActivity.this)
                 .setTitle("时间设定").setView(mPicker).setPositiveButton("确定",null).create();
+                Window window = mAlertDialog.getWindow();
+                window.setGravity(Gravity.CENTER);   //window.setGravity(Gravity.BOTTOM);
                 mAlertDialog.show();
+              //设置大小
+                WindowManager.LayoutParams layoutParams = mAlertDialog.getWindow().getAttributes();
+                layoutParams.width = 800;
+                layoutParams.height = 800;
+                mAlertDialog.getWindow().setAttributes(layoutParams);
             }
         });
 		
@@ -128,7 +137,14 @@ public class PassSettingActivity extends Activity{
                 
                 AlertDialog mAlertDialog = new AlertDialog.Builder(PassSettingActivity.this)
                 .setTitle("角度设定").setView(mPicker).setPositiveButton("确定",null).create();
+                Window window = mAlertDialog.getWindow();
+                window.setGravity(Gravity.CENTER);   //window.setGravity(Gravity.BOTTOM);
                 mAlertDialog.show();
+              //设置大小
+                WindowManager.LayoutParams layoutParams = mAlertDialog.getWindow().getAttributes();
+                layoutParams.width = 800;
+                layoutParams.height = 800;
+                mAlertDialog.getWindow().setAttributes(layoutParams);
             }
         });
 
