@@ -190,15 +190,11 @@ public class PassSettingActivity extends Activity{
 	           case R.id.ButtonDone:
 	        	 //  intent.setClass(SatellitesSettingActivity.this,SettingTabActivity.class);
 	        	 //  SatellitesSettingActivity.this.startActivity(intent);
-	        	   
-//	        	   if ( myApp.handlerD != null ){
-//						myApp.handlerD.postDelayed(myApp.runnableD, 0);  //开始计数器
-//					}
-	        	   	        	
-//	        	   finish();
-					break;  
-	           case R.id.saveBtn:
-	        	   
+	        	   //if ( myApp.handlerD != null ){
+	        	   //myApp.handlerD.postDelayed(myApp.runnableD, 0);  //开始计数器
+	        	   //}
+	        	   finish();
+					break;
 			   default:
 					break;
 			}

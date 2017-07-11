@@ -308,8 +308,8 @@ public class CActivity extends Activity{
 	       			//timer.add(Time.HOUR,12);
 	           		break;
 	           case R.id.ButtonPrefs:
-	        //	   intent.setClass(CActivity.this,SkySettingActivity.class);
-	        //	   CActivity.this.startActivity(intent);
+	        	    intent.setClass(CActivity.this,SkySettingActivity.class);
+	        	    CActivity.this.startActivity(intent);
 					break;  
 	           case R.id.Buttonback:
 	        	   //Log.e("??????????????","cccccccccccccccccc");

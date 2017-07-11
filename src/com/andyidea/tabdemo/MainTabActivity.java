@@ -40,7 +40,9 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 
 	private String time=null;
 
-	private RadioButton RadioButtonE;
+	private Button RadioButtonE;
+	
+	Intent intent = new Intent();
 
     /** Called when the activity is first created. */
     @Override
@@ -49,7 +51,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
 
-        RadioButtonE = (RadioButton) findViewById(R.id.radio_button4);
+        RadioButtonE = (Button) findViewById(R.id.radio_button4);
+        RadioButtonE.setOnClickListener(new ButtonOnClickListener());
 
         handler = new Handler();
 		runnable = new Runnable() {
@@ -77,8 +80,6 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		.setOnCheckedChangeListener(this);
         ((RadioButton) findViewById(R.id.radio_button3))
 		.setOnCheckedChangeListener(this);
-        ((RadioButton) findViewById(R.id.radio_button4))
-        .setOnCheckedChangeListener(this);
 
         setupIntent();
     }
@@ -94,7 +95,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		int hour = t.hour; // 24小时制
 		int minute = t.minute;
 		int second = t.second;
-		time = (year+"-"+month+"-"+date+"\n"+hour+":"+minute+":"+second).toString();
+		time = (year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second).toString();
 		RadioButtonE.setText(time);
 	}
 
@@ -146,13 +147,27 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				if ( myApp.handlerC2 != null ){					
 					myApp.handlerC2.removeCallbacks(myApp.runnableC); //停止计数器
 				}
-				
 				break;
-			case R.id.radio_button4:
-				this.mTabHost.setCurrentTabByTag("E_TAB");
+			default:
 				break;
 			}						
 		}		
+	}
+
+	class ButtonOnClickListener implements OnClickListener{
+		
+		@Override
+		public void onClick(View v) {		
+			switch (v.getId()) {			
+				case R.id.radio_button4:
+					//this.mTabHost.setCurrentTabByTag("E_TAB");
+					intent.setClass(MainTabActivity.this,EActivity.class);
+					MainTabActivity.this.startActivity(intent);
+					break;	             	   			        	   
+			   default:
+					break;
+			}
+		}
 	}
 
          

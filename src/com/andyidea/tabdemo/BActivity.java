@@ -433,8 +433,8 @@ public class BActivity extends Activity{
 	       			footprint = TLECompute.getFootPrintLatLonList(curlla, 64);
 	           		break;
 	           case R.id.ButtonPrefs:
-	        	 //  intent.setClass(BActivity.this,MapSettingActivity.class);
-	        	 //  BActivity.this.startActivity(intent);
+	        	   intent.setClass(BActivity.this,MapSettingActivity.class);
+	        	   BActivity.this.startActivity(intent);
 					break;  
 	           case R.id.Buttonback:
 	        	   interval = -600;

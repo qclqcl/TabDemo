@@ -54,7 +54,7 @@
             android:singleLine="true"
             android:text="过顶预报设置"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textSize="20px"
+            android:textSize="30px"
             android:textColor="@color/black" />
 
     </LinearLayout>
