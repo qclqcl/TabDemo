@@ -161,7 +161,7 @@ public class PassSettingActivity extends Activity{
             			}
             		}
             	}
-            	
+
             	myApp.setDelay(Integer.parseInt(delay_string));
             	myApp.setAngle(Integer.parseInt(angle_string));
             	

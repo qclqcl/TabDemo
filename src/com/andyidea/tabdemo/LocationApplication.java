@@ -39,6 +39,8 @@ public class LocationApplication extends Application {
     public int listtotal,total;
     public int delay = 10;
     public int angle = 10;
+    public boolean disSatname = true;
+    public boolean disSatcoverage = true;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];
     public String[] settime = new String[200];
@@ -69,6 +71,12 @@ public class LocationApplication extends Application {
     }
     public int getAngle() {  
         return angle;  
+    }
+    public boolean getdisSatname(){
+    	return disSatname;
+    }
+    public boolean getdisSatcoverage(){
+    	return disSatcoverage;
     }
     //get risetime,settime,riseazimuth,setazimuth risetimecount
     public String getrisetime(Integer i){
@@ -109,6 +117,12 @@ public class LocationApplication extends Application {
     }
     public void setAngle(Integer angle) {  
         this.angle = angle;  
+    }
+    public void setdisSatname(boolean disSatname){
+    	this.disSatname = disSatname;
+    }
+    public void setdisSatcoverage(boolean disSatcoverage){
+    	this.disSatcoverage = disSatcoverage;
     }
     //get risetime,settime,riseazimuth,setazimuth
     public void setrisetime(String risetime,Integer i){
