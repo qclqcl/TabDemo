@@ -19,7 +19,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class SkySettingActivity extends Activity{
 
-	private Button SaveBtn,ButtonDone;
+	private Button ButtonDone;
 	private ToggleButton  SatellitenameBtn,SatellitecoverageBtn;
 	private LocationApplication myApp;
 	
@@ -31,9 +31,6 @@ public class SkySettingActivity extends Activity{
 
 		ButtonDone = (Button)findViewById(R.id.ButtonDone);
 		ButtonDone.setOnClickListener(new ButtonOnClickListener());
-
-		SaveBtn = (Button)findViewById(R.id.SaveBtn);
-		SaveBtn.setOnClickListener(new ButtonOnClickListener());
 
 		myApp = (LocationApplication)getApplication();
 
@@ -76,10 +73,7 @@ public class SkySettingActivity extends Activity{
 			switch (v.getId()) {
 	           case R.id.ButtonDone:
 	        	   finish();
-					break;
-	           case R.id.SaveBtn:
-	        	   finish();
-	        	   break;
+					break;	           
 			   default:
 					break;
 			}

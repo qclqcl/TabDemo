@@ -29,19 +29,15 @@ public class PassSettingActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.passsetting);
-		
-		ButtonDone = (Button)findViewById(R.id.ButtonDone);		
-		ButtonDone.setOnClickListener(new ButtonOnClickListener());
-		
+
+		ButtonDone = (Button)findViewById(R.id.ButtonDone);
+
 		Datebtn = (Button) findViewById(R.id.dateBtn);
 		et = (TextView) findViewById(R.id.et);
 		
 		Anglebtn = (Button) findViewById(R.id.angleBtn);
 		et2 = (TextView) findViewById(R.id.et2);
-		
-		Savebtn = (Button)findViewById(R.id.saveBtn);		
-		Savebtn.setOnClickListener(new ButtonOnClickListener());
-		
+
 		myApp = (LocationApplication)getApplication();
 /*		
 		Datebtn.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +129,7 @@ public class PassSettingActivity extends Activity{
         });
 
 
-		Savebtn.setOnClickListener(new OnClickListener() {
+		ButtonDone.setOnClickListener(new OnClickListener() {
 				
             @Override
             public void onClick(View v)
@@ -176,29 +172,6 @@ public class PassSettingActivity extends Activity{
                 finish();
             }
         });
-		
-	}
-	
-	
-	class ButtonOnClickListener implements OnClickListener{
-
-		@Override
-		public void onClick(View v) {
-		//	Intent intent = new Intent();			
-			switch (v.getId()) {	
-			  
-	           case R.id.ButtonDone:
-	        	 //  intent.setClass(SatellitesSettingActivity.this,SettingTabActivity.class);
-	        	 //  SatellitesSettingActivity.this.startActivity(intent);
-	        	   //if ( myApp.handlerD != null ){
-	        	   //myApp.handlerD.postDelayed(myApp.runnableD, 0);  //开始计数器
-	        	   //}
-	        	   finish();
-					break;
-			   default:
-					break;
-			}
-		}
 	}
 
 	@Override

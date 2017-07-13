@@ -59,12 +59,13 @@
 
     </LinearLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/et"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:cursorVisible="false"
         android:textColor="@color/black"
+        android:layout_marginTop="20dip"
         android:editable="false" />
 
     <Button
@@ -73,7 +74,7 @@
         android:layout_height="wrap_content"
         android:text="时间设定" />
     
-    <EditText
+    <TextView
         android:id="@+id/et2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -85,11 +86,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="角度设定" />    
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="保存设定" />   
 
 </LinearLayout>

@@ -1,8 +1,5 @@
 package com.andyidea.tabdemo;
 
-
-import com.andyidea.tabdemo.PassSettingActivity.ButtonOnClickListener;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +17,7 @@ import android.widget.ToggleButton;
 
 public class MapSettingActivity extends Activity{
 
-	private Button SaveBtn,ButtonDone;
+	private Button ButtonDone;
 	private ToggleButton  SatellitenameBtn,SatellitecoverageBtn;
 	private TextView SatellitenameTv,SatellitecoverageTv;
 	private LocationApplication myApp;
@@ -33,9 +30,6 @@ public class MapSettingActivity extends Activity{
 
 		ButtonDone = (Button)findViewById(R.id.ButtonDone);
 		ButtonDone.setOnClickListener(new ButtonOnClickListener());
-
-		SaveBtn = (Button)findViewById(R.id.SaveBtn);
-		SaveBtn.setOnClickListener(new ButtonOnClickListener());
 
 		myApp = (LocationApplication)getApplication();
 
@@ -108,9 +102,6 @@ public class MapSettingActivity extends Activity{
 		public void onClick(View v) {
 			switch (v.getId()) {
 	           case R.id.ButtonDone:
-	        	   finish();
-	        	   break;
-	           case R.id.SaveBtn:
 	        	   finish();
 	        	   break;
 			   default:
