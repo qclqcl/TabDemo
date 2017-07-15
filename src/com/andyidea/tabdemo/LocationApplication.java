@@ -41,6 +41,7 @@ public class LocationApplication extends Application {
     public int angle = 10;
     public boolean disSatname = true;
     public boolean disSatcoverage = true;
+    public int MapNo = 1;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];
     public String[] settime = new String[200];
@@ -77,6 +78,9 @@ public class LocationApplication extends Application {
     }
     public boolean getdisSatcoverage(){
     	return disSatcoverage;
+    }
+    public int getMapNo(){
+    	return MapNo;
     }
     //get risetime,settime,riseazimuth,setazimuth risetimecount
     public String getrisetime(Integer i){
@@ -123,6 +127,9 @@ public class LocationApplication extends Application {
     }
     public void setdisSatcoverage(boolean disSatcoverage){
     	this.disSatcoverage = disSatcoverage;
+    }
+    public void setMapNo(int MapNo){
+    	this.MapNo = MapNo;
     }
     //get risetime,settime,riseazimuth,setazimuth
     public void setrisetime(String risetime,Integer i){

@@ -110,17 +110,13 @@ public class MapSettingActivity extends Activity{
 				}
 			}
 		});// 添加监听事件
-		
-		
 	}
 
 	public void showSpinner1() {
 		// 第一步：添加一个下拉列表项的list，这里添加的项就是下拉列表的菜单项
+		list.add("map0");
 		list.add("map1");
 		list.add("map2");
-		list.add("map3");
-		list.add("map4");
-		list.add("map5");
 		// 第二步：为下拉列表定义一个适配器，这里就用到里前面定义的list。
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_single_choice , list);
@@ -129,40 +125,25 @@ public class MapSettingActivity extends Activity{
 		// 第四步：将适配器添加到下拉列表上
 		Spinner1.setAdapter(adapter);
 		// 第五步：为下拉列表设置各种事件的响应，这个事响应菜单被选中
-		Spinner1
-				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int position, long arg3) {
-						/* 将所选mySpinner 的值带入myTextView 中 */
-						SpinnerText.setText("地图选择的是：" + adapter.getItem(position));
-						/* 将mySpinner 显示 */
-						arg0.setVisibility(View.VISIBLE);
-						Log.e("", "aaaaaaaaaaaaaaaaaaaaaaaa+44444444444");
-					}
+		Spinner1.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				/* 将所选mySpinner 的值带入myTextView 中 */
+				SpinnerText.setText("地图选择的是：" + adapter.getItem(position));
+				myApp.setMapNo(position);
+				SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
+				Editor editor = sharedPreferences.edit();
+				editor.putInt("MapNo", myApp.getMapNo());
+				editor.commit();
+				/* 将mySpinner 显示 */
+				arg0.setVisibility(View.VISIBLE);
+			}
 
-					public void onNothingSelected(AdapterView<?> arg0) {
-						SpinnerText.setText("NONE");
-						arg0.setVisibility(View.VISIBLE);
-						Log.e("", "aaaaaaaaaaaaaaaaaaaaaaaa+333333333");
-					}
-				});
-		/* 下拉菜单弹出的内容选项触屏事件处理 */
-		Spinner1.setOnTouchListener(new Spinner.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				/* 将mySpinner 隐藏，不隐藏也可以，看自己爱好 */
-				// v.setVisibility(View.INVISIBLE);
-				Log.e("", "aaaaaaaaaaaaaaaaaaaaaaaa+111111111");
-				return false;
+			public void onNothingSelected(AdapterView<?> arg0) {
+				SpinnerText.setText("NONE");
+				arg0.setVisibility(View.VISIBLE);
 			}
 		});
-		/* 下拉菜单弹出的内容选项焦点改变事件处理 */
-		Spinner1
-				.setOnFocusChangeListener(new Spinner.OnFocusChangeListener() {
-					public void onFocusChange(View v, boolean hasFocus) {
-						v.setVisibility(View.VISIBLE);
-						Log.e("", "aaaaaaaaaaaaaaaaaaaaaaaa+222222222");
-					}
-				});
 	}
 
 	class ButtonOnClickListener implements OnClickListener{
@@ -185,9 +166,11 @@ public class MapSettingActivity extends Activity{
 		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
         int DisSatName = sharedPreferences.getInt("DisSatName", 0);
         int DisSatCoverage = sharedPreferences.getInt("DisSatCoverage", 0);
+        int MapNo = sharedPreferences.getInt("MapNo", 0);
 
         SatellitenameBtn.setChecked((DisSatName==1)?true:false);
         SatellitecoverageBtn.setChecked((DisSatCoverage==1)?true:false);
+		Spinner1.setSelection(MapNo);
 
 		super.onResume();
 	}

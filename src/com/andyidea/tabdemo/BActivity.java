@@ -510,6 +510,14 @@ public class BActivity extends Activity{
 		
 		llas= null;//TLECompute.getMapLead(newTLE,timer);
 		lags= null;//TLECompute.getMapLag(newTLE,timer);
+
+		if(myApp.getMapNo() == 0)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.map);
+		if(myApp.getMapNo() == 1)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
+		if(myApp.getMapNo() == 2)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.earth);
+
 	 super.onResume();
 	}
 
