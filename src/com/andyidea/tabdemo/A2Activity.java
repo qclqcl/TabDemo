@@ -98,7 +98,7 @@ public class A2Activity extends Activity{
 		imageView = (ImageView)findViewById(R.id.img_test);
 
 //		Satinfo = (TextView)findViewById(R.id.satinfo);
-		
+
 		myApp = (LocationApplication)getApplication();
 		String sid=myApp.getSid(myApp.counttest);
 		satinfourl = "http://www.4001149114.com/sattrack/satmanage/satinfo?sid="+sid;
@@ -261,7 +261,7 @@ public class A2Activity extends Activity{
             public void run(){
             	 try {
                      byte[] data = ImageService.getImage(imageUrl);
-                     bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);  //生成位图  
+                     bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);  //生成位图                
 //                     imageView.setImageBitmap(bitmap);   //显示图片 
                  } catch (IOException e) {
                      Toast.makeText(A2Activity.this, "Network error", Toast.LENGTH_LONG).show();  //通知用户连接超时信息
@@ -281,7 +281,7 @@ public class A2Activity extends Activity{
         	//imageView.setLayoutParams(new LayoutParams(256, 256));
         	//imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         	imageView.setImageBitmap(bitmap);   //显示图片  
-
+        	 myApp.setbitmap(bitmap);
         	//设置适配器 
         	Satinof_listview.setAdapter(adapter);
         }

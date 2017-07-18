@@ -10,6 +10,7 @@ import com.baidu.location.LocationClientOption.LocationMode;
 
 import android.app.Application;
 import android.app.Service;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Vibrator;
 
@@ -48,6 +49,7 @@ public class LocationApplication extends Application {
     public String[] riseazimuth = new String[200];
     public String[] setazimuth = new String[200];
     public int risetimecount = 0;
+    public Bitmap bitmap = null;
     
     public String getSid(Integer j) {  
         return sid[j];  
@@ -98,6 +100,9 @@ public class LocationApplication extends Application {
     public int getrisetimecount(){
     	return risetimecount;
     }
+    public Bitmap getbitmap(){
+    	return bitmap;
+    }
     public void setSid(String sid,Integer j) {  
         this.sid[j] = sid;  
     }   
@@ -147,7 +152,10 @@ public class LocationApplication extends Application {
     public void setrisetimecount(Integer risetimecount) {  
         this.risetimecount = risetimecount;  
     }
-    
+    public void setbitmap(Bitmap bitmap){
+    	this.bitmap = bitmap;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -80,9 +80,12 @@ public class EditSatActivity extends Activity {
 	}
 
 	private void init() {
+		myApp = (LocationApplication)getApplication();
+
 		img_btn = (ImageButton) findViewById(R.id.img_btn);
 		img_btn.setOnClickListener(new ButtonOnClickListener());
-		
+		img_btn.setImageBitmap(myApp.getbitmap());   //显示图片  
+
 		submit_btn = (Button) findViewById(R.id.submit);
 		submit_btn.setOnClickListener(new ButtonOnClickListener());
 		
@@ -96,8 +99,7 @@ public class EditSatActivity extends Activity {
 		Sat_launchtime = (EditText)findViewById(R.id.sat_launchtime);
 
 		Sat_info = (EditText)findViewById(R.id.sat_info);
-		
-		myApp = (LocationApplication)getApplication();
+
 		Satinfo cursat = myApp.cursat;
 		if(cursat != null)
 		{
