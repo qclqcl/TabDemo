@@ -153,67 +153,67 @@ public class A2Activity extends Activity{
 				}
 				cursat.setImgurl(imageUrl);
 				map1 = new HashMap<String, Object>();
-			    map1.put("user", "名称:");
+			    map1.put("user", "名称:            ");
 			    map1.put("value", satinfoJson.getString("namecn"));
 			     array.add(map1);
 			     cursat.setNamecn(satinfoJson.getString("namecn"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "英文:");
+			     map1.put("user", "英文:            ");
 			     map1.put("value", satinfoJson.getString("name"));
 			     array.add(map1);
 			     cursat.setName(satinfoJson.getString("name"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "卫星编号:");
+			     map1.put("user", "卫星编号:    ");
 			     map1.put("value", satinfoJson.getString("sid"));
 			     array.add(map1);
 			     cursat.setSid(satinfoJson.getString("sid"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "类型:");
+			     map1.put("user", "类型:            ");
 			     map1.put("value", satinfoJson.getString("type"));
 			     array.add(map1);
 			     cursat.setType(satinfoJson.getString("type"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "在轨:");
+			     map1.put("user", "在轨:            ");
 			     map1.put("value", satinfoJson.getInt("valid"));
 			     array.add(map1);
 			     cursat.setValid(satinfoJson.getInt("valid"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "重量:");
+			     map1.put("user", "重量:            ");
 			     map1.put("value", satinfoJson.getString("weight"));
 			     array.add(map1);
 			     cursat.setWeight(satinfoJson.getString("weight"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "发射工具:");
+			     map1.put("user", "发射工具:    ");
 			     map1.put("value", satinfoJson.getString("launch"));
 			     array.add(map1);
 			     cursat.setLaunch(satinfoJson.getString("launch"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "发射时间:");
+			     map1.put("user", "发射时间:    ");
 			     map1.put("value", satinfoJson.getString("launchtime"));
 			     array.add(map1);
 			     cursat.setLaunchtime(satinfoJson.getString("launchtime"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "tle1:");
+			     map1.put("user", "tle1:              ");
 			     map1.put("value", satinfoJson.getString("tle1"));
 			     array.add(map1);
 			     cursat.setTle1(satinfoJson.getString("tle1"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "tle2:");
+			     map1.put("user", "tle2:              ");
 			     map1.put("value", satinfoJson.getString("tle2"));
 			     array.add(map1);
 			     cursat.setTle2(satinfoJson.getString("tle2"));
 			     
 			     map1 = new HashMap<String, Object>();
-			     map1.put("user", "卫星资料:");
+			     map1.put("user", "卫星资料:    ");
 			     map1.put("value", satinfoJson.getString("info"));
 			     array.add(map1);
 			     cursat.setInfo(satinfoJson.getString("info"));

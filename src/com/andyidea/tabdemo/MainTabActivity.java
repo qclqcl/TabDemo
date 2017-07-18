@@ -95,7 +95,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		int hour = t.hour; // 24小时制
 		int minute = t.minute;
 		int second = t.second;
-		time = (year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second).toString();
+//		time = (year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second).toString();
+		time = ("帮助文档  "+hour+":"+minute+":"+second).toString();
 		RadioButtonE.setText(time);
 	}
 

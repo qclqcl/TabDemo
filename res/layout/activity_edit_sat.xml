@@ -146,45 +146,7 @@
 		</LinearLayout>
 	</RelativeLayout>
 	 
-	<RelativeLayout
-	    android:id="@+id/layout_sid"
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content">
-    <ImageView
-		android:id="@+id/mark_pic"
-		android:src="@drawable/earth"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:paddingLeft="8dp"
-		android:paddingTop="8dp"
-		android:gravity="center"
-		android:layout_alignParentLeft="true"/>
-		<LinearLayout 
-			android:orientation="horizontal" 
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content" 
-			android:paddingLeft="8dp"
-			android:layout_toRightOf="@id/mark_pic">
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingTop="8dp"
-				android:textColor="@color/black"
-				android:text="卫星编号:"
-				android:textSize="12dp" />
-			<EditText 
-		        android:id ="@+id/sat_satno"
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content" 
-				android:imeOptions="actionNext" 
-				android:singleLine="true"
-				android:nextFocusForward="@+id/sat_typename" 
-				android:textColor="@color/black"
-				android:textSize="12dp"
-				android:hint="请输入卫星编号"
-				android:textColorHint="#707070"/>
-		</LinearLayout>
-	</RelativeLayout>
+
 	
 	<RelativeLayout
 		android:layout_width="fill_parent" 
@@ -376,83 +338,7 @@
 				android:textColorHint="#707070"/>
 		</LinearLayout>
 	</RelativeLayout>
-	  
-	<RelativeLayout
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content">
-    <ImageView
-		android:id="@+id/mark_pic"
-		android:src="@drawable/earth"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:paddingLeft="8dp"
-		android:paddingTop="8dp"
-		android:gravity="center"
-		android:layout_alignParentLeft="true"/>
-		<LinearLayout 
-			android:orientation="horizontal" 
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content" 
-			android:paddingLeft="8dp"
-			android:layout_toRightOf="@id/mark_pic">
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingTop="8dp"
-				android:textColor="@color/black"
-				android:text="tle1:"
-				android:textSize="12dp" />
-			<EditText 
-		        android:id ="@+id/sat_tle1"
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content" 
-				android:imeOptions="actionNext" 
-				android:singleLine="true"
-				android:nextFocusForward="@+id/sat_tle2" 
-				android:textColor="@color/black"
-				android:textSize="12dp"
-				android:hint="请输入卫星tle1"
-				android:textColorHint="#707070"/>
-		</LinearLayout>
-	</RelativeLayout>
-	<RelativeLayout
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content">
-    <ImageView
-		android:id="@+id/mark_pic"
-		android:src="@drawable/earth"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:paddingLeft="8dp"
-		android:paddingTop="8dp"
-		android:gravity="center"
-		android:layout_alignParentLeft="true"/>
-		<LinearLayout 
-			android:orientation="horizontal" 
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content" 
-			android:paddingLeft="8dp"
-			android:layout_toRightOf="@id/mark_pic">
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingTop="8dp"
-				android:textColor="@color/black"
-				android:text="tle2:"
-				android:textSize="12dp" />
-			<EditText 
-		        android:id ="@+id/sat_tle2"
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content" 
-				android:imeOptions="actionNext" 
-				android:singleLine="true"
-				android:nextFocusForward="@+id/sat_info" 
-				android:textColor="@color/black"
-				android:textSize="12dp"
-				android:hint="请输入卫星tle2"
-				android:textColorHint="#707070"/>
-		</LinearLayout>
-	</RelativeLayout>
+
 
 	<RelativeLayout
 		android:layout_width="fill_parent" 

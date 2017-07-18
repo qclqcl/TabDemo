@@ -61,7 +61,7 @@ public class EditSatActivity extends Activity {
 	public static final String url = "http://www.4001149114.com/sattrack/satmanage/satupdateapp";//要上传的地址测试用	
 	public String img_src;
 	
-	private EditText Sat_namecn,Sat_name,Sat_satno,Sat_typename,Sat_valid,Sat_weight,Sat_launch,Sat_launchtime,Sat_tle1,Sat_tle2,Sat_info;
+	private EditText Sat_namecn,Sat_name,Sat_typename,Sat_valid,Sat_weight,Sat_launch,Sat_launchtime,Sat_info;
 	String result;
 	
 	@Override
@@ -89,17 +89,12 @@ public class EditSatActivity extends Activity {
 		Sat_namecn = (EditText)findViewById(R.id.sat_namecn);
 		Sat_name = (EditText)findViewById(R.id.sat_name);
 		
-		Sat_satno = (EditText)findViewById(R.id.sat_satno);
-		
-		
 		Sat_typename = (EditText)findViewById(R.id.sat_typename);
 		Sat_valid = (EditText)findViewById(R.id.sat_valid);
 		Sat_weight = (EditText)findViewById(R.id.sat_weight);
 		Sat_launch = (EditText)findViewById(R.id.sat_launch);
 		Sat_launchtime = (EditText)findViewById(R.id.sat_launchtime);
 
-		Sat_tle1 = (EditText)findViewById(R.id.sat_tle1);
-		Sat_tle2 = (EditText)findViewById(R.id.sat_tle2);
 		Sat_info = (EditText)findViewById(R.id.sat_info);
 		
 		myApp = (LocationApplication)getApplication();
@@ -108,14 +103,11 @@ public class EditSatActivity extends Activity {
 		{
 			Sat_namecn.setText(cursat.getNamecn());
 			Sat_name.setText(cursat.getName());
-			Sat_satno.setText(cursat.getSid());
 			Sat_typename.setText(cursat.getType());
 			Sat_valid.setText(Integer.toString(cursat.getValid()));
 			Sat_weight.setText(cursat.getWeight());
 			Sat_launch.setText(cursat.getLaunch());
 			Sat_launchtime.setText(cursat.getLaunchtime());
-			Sat_tle1.setText(cursat.getTle1());
-			Sat_tle2.setText(cursat.getTle2());		
 			Sat_info.setText(cursat.getInfo());
 		}
 		
@@ -140,8 +132,6 @@ public class EditSatActivity extends Activity {
 						Toast.makeText(getApplicationContext(), "请输入卫星名称 ",Toast.LENGTH_SHORT).show();
 					}else if(Sat_name.getText().toString().length()==0){
 						Toast.makeText(getApplicationContext(), "请输入卫星英文名称 ",Toast.LENGTH_SHORT).show();
-					}else if(Sat_satno.getText().toString().length()==0){
-						Toast.makeText(getApplicationContext(), "请输入卫星编号 ",Toast.LENGTH_SHORT).show();
 					}else if(Sat_typename.getText().toString().length()==0){
 						Toast.makeText(getApplicationContext(), "请输入卫星类型",Toast.LENGTH_SHORT).show();
 					}else if(Sat_valid.getText().toString().length()==0){
@@ -152,10 +142,6 @@ public class EditSatActivity extends Activity {
 						Toast.makeText(getApplicationContext(), "请输入卫星发射工具",Toast.LENGTH_SHORT).show();
 					}else if(Sat_launchtime.getText().toString().length()==0){
 						Toast.makeText(getApplicationContext(), "请输入卫星发射时间",Toast.LENGTH_SHORT).show();
-					}else if(Sat_tle1.getText().toString().length()==0){
-						Toast.makeText(getApplicationContext(), "请输入卫星tle1",Toast.LENGTH_SHORT).show();
-					}else if(Sat_tle2.getText().toString().length()==0){
-						Toast.makeText(getApplicationContext(), "请输入卫星tle2 ",Toast.LENGTH_SHORT).show();
 					}else if(Sat_info.getText().toString().length()==0){
 						Toast.makeText(getApplicationContext(), "请输入卫星资料 ",Toast.LENGTH_SHORT).show();
 					}else{
@@ -361,14 +347,11 @@ public class EditSatActivity extends Activity {
 					final Map<String, String> map = new HashMap<String, String>();
 					map.put("namecn", Sat_namecn.getText().toString());
 					map.put("name", Sat_name.getText().toString());
-					map.put("sid", myApp.cursat.getSid());//Sat_satno.getText().toString());
 					map.put("type", Sat_typename.getText().toString());
 					map.put("valid", Sat_valid.getText().toString());
 					map.put("weight", Sat_weight.getText().toString());
 					map.put("launch", Sat_launch.getText().toString());
-					map.put("launchtime", Sat_launchtime.getText().toString());
-					map.put("tle1", Sat_tle1.getText().toString());
-					map.put("tle2", Sat_tle2.getText().toString());
+					map.put("launchtime", Sat_launchtime.getText().toString());					
 					map.put("info", Sat_info.getText().toString());
 					try {
 						result = CommantUtil.uploadSubmit(url, map, f);
