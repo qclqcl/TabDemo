@@ -18,6 +18,7 @@ import satellite.tle.utilities.TLECompute;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -150,7 +151,7 @@ public class BActivity extends Activity{
 
 		dragImageView = (DragImageView) findViewById(R.id.div_main);
 		
-		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent500,window_width, window_height);
+		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent1024,window_width, window_height);
 		
 		//关于画线的背景的设置
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
@@ -182,9 +183,17 @@ public class BActivity extends Activity{
 		//personBitmap = BitmapFactory.decodeResource(getResources(),	R.drawable.person_mark);
 		//satelliteBitmap = BitmapFactory.decodeResource(getResources(),	R.drawable.satellite_mark);
 		//satellitenoBitmap = BitmapFactory.decodeResource(getResources(),	R.drawable.satellite_no);
-		
-		
-		imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.map);
+
+//		imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
+        int MapNo = sharedPreferences.getInt("MapNo", 0);
+		if(MapNo == 0)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+		if(MapNo == 1)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+		if(MapNo == 2)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+
 		width = imgMarker.getWidth();
 		height = imgMarker.getHeight();
 		//System.out.println(width+","+height+","+window_width+"," + window_height);
@@ -222,9 +231,9 @@ public class BActivity extends Activity{
 			public void run() {				
 
 				myApp.handlerB.postDelayed(this, 2000);		
-				dragImageView.setScale(5.0f);
+//				dragImageView.setScale(5.0f);
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));
-				
+
 				newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));
@@ -511,12 +520,15 @@ public class BActivity extends Activity{
 		llas= null;//TLECompute.getMapLead(newTLE,timer);
 		lags= null;//TLECompute.getMapLag(newTLE,timer);
 
-		if(myApp.getMapNo() == 0)
-			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.map);
-		if(myApp.getMapNo() == 1)
-			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
-		if(myApp.getMapNo() == 2)
-			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.earth);
+		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
+        int MapNo = sharedPreferences.getInt("MapNo", 0);
+
+		if(MapNo == 0)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+		if(MapNo == 1)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+		if(MapNo == 2)
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
 
 	 super.onResume();
 	}
