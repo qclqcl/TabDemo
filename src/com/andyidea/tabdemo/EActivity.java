@@ -17,7 +17,6 @@ import android.widget.Toast;
 public class EActivity extends Activity{
 
 	private Button ButtonDone_e;
-	private TextView textView_e;
 	private long exitTime = 0;
 	Intent intent = new Intent();
 
@@ -29,10 +28,6 @@ public class EActivity extends Activity{
 
 		ButtonDone_e = (Button)findViewById(R.id.ButtonDone_e);
 		ButtonDone_e.setOnClickListener(new ButtonOnClickListener());
-		
-		textView_e = (TextView)findViewById(R.id.textview_e);
-		textView_e.setMovementMethod(ScrollingMovementMethod.getInstance());  
-		textView_e.setText("°ïÖúÎÄµµ" + "\n" +"°ïÖúÎÄµµ");
 	}
 
 	class ButtonOnClickListener implements OnClickListener{
@@ -48,7 +43,7 @@ public class EActivity extends Activity{
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	if (keyCode == KeyEvent.KEYCODE_MENU) {
