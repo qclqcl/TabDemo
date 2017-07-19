@@ -92,6 +92,7 @@ public class BActivity extends Activity{
 	LLA curlla;
 	Time timer ;
 	int interval = 1;
+	boolean didRunFlag = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -228,9 +229,12 @@ public class BActivity extends Activity{
 		myApp.runnableB = new Runnable() {
 			@SuppressWarnings("deprecation")
 			@Override
-			public void run() {				
-
-				myApp.handlerB.postDelayed(this, 2000);		
+			public void run() {
+				myApp.handlerB.postDelayed(this, 2000);
+				if(!didRunFlag){
+					    didRunFlag = true;
+					    dragImageView.setScale(5.0f);
+				}
 //				dragImageView.setScale(5.0f);
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));
 
@@ -532,6 +536,4 @@ public class BActivity extends Activity{
 
 	 super.onResume();
 	}
-
-	
 }

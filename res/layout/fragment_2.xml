@@ -156,16 +156,15 @@
                 android:textColor="@color/black" />
             
  		</LinearLayout>
-      
-    
-   
-    <LinearLayout
+
+   <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"  
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"                           
             android:orientation="vertical"
             android:gravity="center"                        
-            android:layout_gravity="center"         
+            android:layout_gravity="center"
+            android:layout_marginTop="60dip"
             >
         <com.andyidea.tabdemo.image.DragImageView
 	        android:id="@+id/div_main"
@@ -174,9 +173,8 @@
 	        android:scaleType="center"
 	        android:gravity="center"
 	     />
-    </LinearLayout>
+   </LinearLayout >
 
-    
      <LinearLayout         
            android:layout_width="fill_parent"
            android:layout_height="25dp"
@@ -190,11 +188,5 @@
             android:textColor="@color/white"
            />   
      </LinearLayout> 
-    
-        
+
 </RelativeLayout>
-
-    
-
-    
-    
