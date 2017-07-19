@@ -43,6 +43,8 @@ public class LocationApplication extends Application {
     public boolean disSatname = true;
     public boolean disSatcoverage = true;
     public int MapNo = 1;
+    public int WatchPosNo = 0;
+    public float watchLatitude,watchLongitude,watchAltitude;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];
     public String[] settime = new String[200];
@@ -84,6 +86,19 @@ public class LocationApplication extends Application {
     public int getMapNo(){
     	return MapNo;
     }
+    public int getWatchPosNo(){
+    	return WatchPosNo;
+    }
+    public float getWatchLatitude(){
+    	return watchLatitude;
+    }
+    public float getWatchLongitude(){
+    	return watchLongitude;
+    }
+    public float getWatchAltitude(){
+    	return watchAltitude;
+    }
+    
     //get risetime,settime,riseazimuth,setazimuth risetimecount
     public String getrisetime(Integer i){
     	return risetime[i];
@@ -135,6 +150,18 @@ public class LocationApplication extends Application {
     }
     public void setMapNo(int MapNo){
     	this.MapNo = MapNo;
+    }
+    public void setWatchPosNo(int WatchPosNo){
+    	this.WatchPosNo = WatchPosNo;
+    }
+    public void setWatchLatitude(float watchLatitude){
+    	this.watchLatitude = watchLatitude;
+    }
+    public void setWatchLongitude(float watchLongitude){
+    	this.watchLongitude = watchLongitude;
+    }
+    public void setWatchAltitude(float watchAltitude){
+    	this.watchAltitude = watchAltitude;
     }
     //get risetime,settime,riseazimuth,setazimuth
     public void setrisetime(String risetime,Integer i){

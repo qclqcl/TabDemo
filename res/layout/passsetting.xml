@@ -87,4 +87,85 @@
         android:layout_height="wrap_content"
         android:text="角度设定" />    
 
+    <TextView
+        android:id="@+id/et3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:editable="false" />
+
+	<Spinner
+        android:id="@+id/Spinner_position"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/title_bg"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+    </Spinner>
+
+	<LinearLayout 
+	    android:id="@+id/linearLayout_latitude"
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站经度值:" />
+		<EditText
+	        android:id ="@+id/watch_latitude"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:imeOptions="actionNext"
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_longitude"
+			android:textColor="@color/black"
+			android:hint="请输入观测站经度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/linearLayout_longitude"
+		android:orientation="horizontal" 
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站纬度值:"/>
+		<EditText 
+	        android:id ="@+id/watch_longitude"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:imeOptions="actionNext" 
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_altitude" 
+			android:textColor="@color/black"
+			android:hint="请输入观测站纬度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/linearLayout_altitude"
+		android:orientation="horizontal" 
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站高度值:"/>
+		<EditText 
+	        android:id ="@+id/watch_altitude"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:imeOptions="actionNext" 
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_latitude" 
+			android:textColor="@color/black"
+			android:hint="请输入观测站高度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
 </LinearLayout>
