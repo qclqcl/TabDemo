@@ -94,17 +94,39 @@
         android:textColor="@color/black"
         android:editable="false" />
 
-	<Spinner
-        android:id="@+id/Spinner_position"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/title_bg"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
-    </Spinner>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="设置观测站位置"
+        android:editable="false" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="    是否当前位置              " />
+		<ToggleButton
+		    android:id="@+id/Toggle_position"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@android:color/transparent"
+	        android:button="@drawable/toggle_btn"
+	        android:checked="true"
+	        android:text=""
+	        android:textOff=""
+	        android:textOn="" />
+	</LinearLayout>
+
 
 	<LinearLayout 
 	    android:id="@+id/linearLayout_latitude"
 		android:orientation="horizontal"
+		android:layout_gravity="center"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content">
 		<TextView
@@ -126,6 +148,7 @@
 	</LinearLayout>
 	<LinearLayout
 	    android:id="@+id/linearLayout_longitude"
+		android:layout_gravity="center"
 		android:orientation="horizontal" 
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content">
@@ -148,6 +171,7 @@
 	</LinearLayout>
 	<LinearLayout
 	    android:id="@+id/linearLayout_altitude"
+	    android:layout_gravity="center"
 		android:orientation="horizontal" 
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content">

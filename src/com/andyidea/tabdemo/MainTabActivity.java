@@ -41,7 +41,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private String time=null;
 
 	private Button RadioButtonE;
-	
+	private Button RadioButtonHelp;
 	Intent intent = new Intent();
 
     /** Called when the activity is first created. */
@@ -53,6 +53,9 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 
         RadioButtonE = (Button) findViewById(R.id.radio_button4);
         RadioButtonE.setOnClickListener(new ButtonOnClickListener());
+
+        RadioButtonHelp = (Button) findViewById(R.id.radio_help);
+        RadioButtonHelp.setOnClickListener(new ButtonOnClickListener());
 
         handler = new Handler();
 		runnable = new Runnable() {
@@ -95,9 +98,9 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		int hour = t.hour; // 24小时制
 		int minute = t.minute;
 		int second = t.second;
-		time = (year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second+"帮助").toString();
-//		time = ("帮助文档  "+hour+":"+minute+":"+second).toString();
+		time = (year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second).toString();
 		RadioButtonE.setText(time);
+		RadioButtonE.setTextSize(7);
 	}
 
 	@Override
@@ -160,7 +163,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		@Override
 		public void onClick(View v) {		
 			switch (v.getId()) {			
-				case R.id.radio_button4:
+				case R.id.radio_help:
 					//this.mTabHost.setCurrentTabByTag("E_TAB");
 					intent.setClass(MainTabActivity.this,EActivity.class);
 					MainTabActivity.this.startActivity(intent);

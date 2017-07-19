@@ -43,7 +43,7 @@ public class LocationApplication extends Application {
     public boolean disSatname = true;
     public boolean disSatcoverage = true;
     public int MapNo = 1;
-    public int WatchPosNo = 0;
+    public int WatchPosNo = 1;
     public float watchLatitude,watchLongitude,watchAltitude;
     //risetime,settime,riseazimuth,setazimuth risetimecount
     public String[] risetime = new String[200];

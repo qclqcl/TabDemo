@@ -17,13 +17,16 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.NumberPicker.OnValueChangeListener;
+import android.widget.ToggleButton;
 
 public class PassSettingActivity extends Activity{
 	
@@ -31,7 +34,7 @@ public class PassSettingActivity extends Activity{
 	private Button ButtonDone,Savebtn;
 	private Button Datebtn,Anglebtn;
 	private TextView et,et2,et3;
-	private Spinner Spinner_position;
+	private ToggleButton Toggle_position;
 	private LinearLayout linearLayout_latitude,linearLayout_longitude,linearLayout_altitude;
 	private EditText watch_latitude,watch_longitude,watch_altitude;
 	private LocationApplication myApp;
@@ -50,7 +53,7 @@ public class PassSettingActivity extends Activity{
 		Anglebtn = (Button) findViewById(R.id.angleBtn);
 		et2 = (TextView) findViewById(R.id.et2);
 		
-		Spinner_position = (Spinner) findViewById(R.id.Spinner_position);
+		Toggle_position = (ToggleButton) findViewById(R.id.Toggle_position);
 		et3 = (TextView) findViewById(R.id.et3);
 
 		watch_latitude = (EditText)findViewById(R.id.watch_latitude);
@@ -64,44 +67,7 @@ public class PassSettingActivity extends Activity{
 		linearLayout_altitude = (LinearLayout) findViewById(R.id.linearLayout_altitude);
 		linearLayout_altitude.setVisibility(View.GONE);//这一句即隐藏布局LinearLayout区域
 
-		showSpinner_position();
-		
 		myApp = (LocationApplication)getApplication();
-/*		
-		Datebtn.setOnClickListener(new View.OnClickListener() {
-			Calendar c = Calendar.getInstance();
-			@Override
-			public void onClick(View v) {
-				// 最后一个false表示不显示日期，如果要显示日期，最后参数可以是true或者不用输入
-				new DoubleDatePickerDialog(PassSettingActivity.this, 0, new DoubleDatePickerDialog.OnDateSetListener() {
-
-					@Override
-					public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear,
-							int startDayOfMonth, DatePicker endDatePicker, int endYear, int endMonthOfYear,
-							int endDayOfMonth) {
-																		
-						if(startYear>endYear){
-							et.setText(" ");
-							Toast.makeText(PassSettingActivity.this, "开始时间不能晚于结束时间", Toast.LENGTH_SHORT).show();
-						}
-						else if((startYear==endYear) && (startMonthOfYear>endMonthOfYear)){
-							et.setText(" ");
-							Toast.makeText(PassSettingActivity.this, "开始时间不能晚于结束时间", Toast.LENGTH_SHORT).show();
-						}
-						else if((startYear==endYear) && (startMonthOfYear==endMonthOfYear) && (startDayOfMonth>endDayOfMonth)){
-							et.setText(" ");
-							Toast.makeText(PassSettingActivity.this, "开始时间不能晚于结束时间", Toast.LENGTH_SHORT).show();
-						}
-						else{
-						String textString = String.format("开始时间：%d-%d-%d\n结束时间：%d-%d-%d", startYear,
-								startMonthOfYear + 1, startDayOfMonth, endYear, endMonthOfYear + 1, endDayOfMonth);
-						et.setText(textString);
-						}
-					}
-				}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), true).show();
-			}
-		});
-*/
 
 		Datebtn.setOnClickListener(new OnClickListener() {
             
@@ -155,6 +121,36 @@ public class PassSettingActivity extends Activity{
                 mAlertDialog.show();
             }
         });
+
+		Toggle_position.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				if(isChecked){
+					//未选中
+					linearLayout_latitude.setVisibility(View.VISIBLE);
+					linearLayout_longitude.setVisibility(View.VISIBLE);
+					linearLayout_altitude.setVisibility(View.VISIBLE);
+					myApp.setWatchPosNo(1);
+					SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
+					Editor editor = sharedPreferences.edit();
+					editor.putInt("WatchPosNo", myApp.getWatchPosNo());
+					editor.commit();
+				}else{
+					//选中
+					linearLayout_latitude.setVisibility(View.GONE);
+					linearLayout_longitude.setVisibility(View.GONE);
+					linearLayout_altitude.setVisibility(View.GONE);
+					myApp.setWatchPosNo(0);
+					SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
+					Editor editor = sharedPreferences.edit();
+					editor.putInt("WatchPosNo", myApp.getWatchPosNo());
+					editor.commit();
+				}
+			}
+		});// 添加监听事件		
 
 		ButtonDone.setOnClickListener(new OnClickListener() {
 
@@ -214,48 +210,6 @@ public class PassSettingActivity extends Activity{
         });
 	}
 
-	public void showSpinner_position() {
-		// 第一步：添加一个下拉列表项的list，这里添加的项就是下拉列表的菜单项
-		list.add("当前位置");
-		list.add("观测站位置");
-		// 第二步：为下拉列表定义一个适配器，这里就用到里前面定义的list。
-		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_single_choice , list);
-		// 第三步：为适配器设置下拉列表下拉时的菜单样式。 simple_spinner_item
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-		// 第四步：将适配器添加到下拉列表上
-		Spinner_position.setAdapter(adapter);
-		// 第五步：为下拉列表设置各种事件的响应，这个事响应菜单被选中
-		Spinner_position.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				/* 将所选mySpinner 的值带入myTextView 中 */
-				et3.setText("位置选择的是：" + adapter.getItem(position));
-				if(position == 0){
-					linearLayout_latitude.setVisibility(View.GONE);
-					linearLayout_longitude.setVisibility(View.GONE);
-					linearLayout_altitude.setVisibility(View.GONE);
-				}else{
-					linearLayout_latitude.setVisibility(View.VISIBLE);
-					linearLayout_longitude.setVisibility(View.VISIBLE);
-					linearLayout_altitude.setVisibility(View.VISIBLE);
-				}
-				myApp.setWatchPosNo(position);
-				SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
-				Editor editor = sharedPreferences.edit();
-				editor.putInt("WatchPosNo", myApp.getWatchPosNo());
-				editor.commit();
-				/* 将mySpinner 显示 */
-				arg0.setVisibility(View.VISIBLE);
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				et3.setText("NONE");
-				arg0.setVisibility(View.VISIBLE);
-			}
-		});
-	}
-	
 	@Override
 	protected void onResume() {
 
@@ -274,7 +228,7 @@ public class PassSettingActivity extends Activity{
 		watch_latitude.setText(WatchLatitude + "");
 		watch_longitude.setText(WatchLongitude + "");
 		watch_altitude.setText(WatchAltitude + "");
-		Spinner_position.setSelection(WatchPosNo);
+		Toggle_position.setChecked((WatchPosNo==1)?true:false);
 
 	 super.onResume();
 	 

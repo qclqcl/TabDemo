@@ -54,7 +54,7 @@ public class MapSettingActivity extends Activity{
 		SatellitecoverageTv = (TextView) findViewById(R.id.SatellitecoverageTv);
 
 		showSpinner1();
-		
+
 		SatellitenameBtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -82,7 +82,7 @@ public class MapSettingActivity extends Activity{
 				}
 			}
 		});// 添加监听事件
-		
+
 		SatellitecoverageBtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -129,7 +129,8 @@ public class MapSettingActivity extends Activity{
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				/* 将所选mySpinner 的值带入myTextView 中 */
-				SpinnerText.setText("地图选择的是：" + adapter.getItem(position));
+//				SpinnerText.setText("选择背景地图：" + adapter.getItem(position));
+				SpinnerText.setText("选择背景地图：");
 				myApp.setMapNo(position);
 				SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
 				Editor editor = sharedPreferences.edit();

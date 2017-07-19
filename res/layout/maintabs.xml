@@ -41,11 +41,15 @@
                 <RadioButton  
                     android:id="@id/radio_button3" 
                     android:text="@string/main_pass"                      
-                    style="@style/main_tab_bottom" />            
+                    style="@style/main_tab_bottom" />        
+                <Button
+                    android:id="@+id/radio_help"
+                    android:text="帮助"
+                    style="@style/main_tab_bottom" />    
                 <Button
                     android:id="@id/radio_button4"
                     android:text="@string/main_more"
-                    style="@style/main_tab_bottom" />
+                    style="@style/main_tab_bottom"/>
 
             </RadioGroup>
     </LinearLayout> 
