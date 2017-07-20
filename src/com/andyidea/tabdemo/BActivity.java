@@ -152,7 +152,7 @@ public class BActivity extends Activity{
 
 		dragImageView = (DragImageView) findViewById(R.id.div_main);
 		
-		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent1024,window_width, window_height);
+		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent1080,window_width, window_height);
 		
 		//关于画线的背景的设置
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
@@ -233,7 +233,7 @@ public class BActivity extends Activity{
 				myApp.handlerB.postDelayed(this, 2000);
 				if(!didRunFlag){
 					    didRunFlag = true;
-					    dragImageView.setScale(5.0f);
+					    dragImageView.setScale(6.0f);
 				}
 //				dragImageView.setScale(5.0f);
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));

@@ -169,7 +169,7 @@
         <com.andyidea.tabdemo.image.DragImageView
 	        android:id="@+id/div_main"
 	        android:layout_width="wrap_content"
-	        android:layout_height="256dp"
+	        android:layout_height="540px"
 	        android:scaleType="center"
 	        android:gravity="center"
 	     />

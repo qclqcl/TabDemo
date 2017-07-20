@@ -144,11 +144,11 @@ public class DragImageView extends ImageView {
 //		MAX_W = bitmap_W * 3;
 //		MAX_H = bitmap_H * 3;
 
-		MAX_W = bitmap_W * 5;
-		MAX_H = bitmap_H * 5;
+		MAX_W = bitmap_W * 6;
+		MAX_H = bitmap_H * 6;
 
-		MIN_W = bitmap_W;
-		MIN_H = bitmap_H;
+		MIN_W = (bitmap_W * 2);
+		MIN_H = (bitmap_H * 2);
 
 	}
 
