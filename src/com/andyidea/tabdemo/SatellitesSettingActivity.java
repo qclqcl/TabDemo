@@ -375,7 +375,7 @@ private void update(){
 	        	   break;
 
 	           case R.id.ButtonAddSat:
-	        	   intent.setClass(SatellitesSettingActivity.this,A3Activity.class);
+	        	   intent.setClass(SatellitesSettingActivity.this,AddSatActivity.class);
 	        	   SatellitesSettingActivity.this.startActivity(intent);
 	        	   break;
 /*					

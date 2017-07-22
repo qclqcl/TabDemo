@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import name.gano.astro.time.Time;
 import satellite.tle.image.Satinfo;
+import satellite.tle.utilities.TLE;
 
 import com.andyidea.tabdemo.A3Activity.ButtonOnClickListener;
 
@@ -20,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,7 +51,7 @@ import android.provider.MediaStore;
 public class EditSatActivity extends Activity {
 
 	private ImageButton img_btn;
-	private Button submit_btn;
+	private Button submit_btn,ButtonDone_a3;
 	private LocationApplication myApp;
 	private Uri photouri;
 	//private LinearLayout editlinearLayout;
@@ -86,8 +89,11 @@ public class EditSatActivity extends Activity {
 		img_btn.setOnClickListener(new ButtonOnClickListener());
 		img_btn.setImageBitmap(myApp.getbitmap());   //显示图片  
 
-		submit_btn = (Button) findViewById(R.id.submit);
+		submit_btn = (Button) findViewById(R.id.submit_editsat);
 		submit_btn.setOnClickListener(new ButtonOnClickListener());
+		
+		ButtonDone_a3 = (Button) findViewById(R.id.ButtonDone_a3);
+		ButtonDone_a3.setOnClickListener(new ButtonOnClickListener());
 		
 		Sat_namecn = (EditText)findViewById(R.id.sat_namecn);
 		Sat_name = (EditText)findViewById(R.id.sat_name);
@@ -124,8 +130,10 @@ public class EditSatActivity extends Activity {
 	           case R.id.img_btn: 
 	        	   showDialog();
 					break;
-				
-	           case R.id.submit:
+	           case R.id.ButtonDone_a3: 
+	        	   finish();
+					break;
+	           case R.id.submit_editsat:
 	        	   //img_src = "file.jpg";
 	        	   //if(img_src == null){
 					//	Toast.makeText(getApplicationContext(), "请选择一张图片 ",Toast.LENGTH_SHORT).show();
@@ -205,7 +213,8 @@ public class EditSatActivity extends Activity {
 	            fin.read(bytes);  
 	              
 	            fin.close(); 
-	            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); 
+	            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+	            myApp.setbitmap(bitmap);
 				Drawable drawable = new BitmapDrawable(bitmap);
 				img_btn.setBackgroundDrawable(drawable);
 			} catch (Exception e) {
@@ -238,7 +247,8 @@ public class EditSatActivity extends Activity {
 		            fin.read(bytes);  
 		              
 		            fin.close(); 
-		            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); 
+		            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+		            myApp.setbitmap(bitmap);
 					Drawable drawable = new BitmapDrawable(bitmap);
 					img_btn.setBackgroundDrawable(drawable);
 				} catch (Exception e) {
@@ -365,6 +375,10 @@ public class EditSatActivity extends Activity {
 				}
 			}.start();
 	 }
-
-
+	 
+	protected void onResume() {
+		 //设置为横屏
+		 img_btn.setImageBitmap(myApp.getbitmap());   //显示图片  
+		 super.onResume();
+		}
 }

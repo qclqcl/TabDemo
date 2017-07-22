@@ -23,11 +23,13 @@
     <string name="login_str">登录</string>
     <string name="title_activity_edit_sat">EditSatActivity</string>
     <string name="header_spinner_01">Hello world!</string>
-    
+
     <string-array name="spinnername">
         <item>map1</item>
         <item>map2</item>
         <item>map3</item>
     </string-array>
+
+    <string name="title_activity_add_sat">AddSatActivity</string>
 
 </resources>
