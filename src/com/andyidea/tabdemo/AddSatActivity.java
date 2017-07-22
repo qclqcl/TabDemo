@@ -63,7 +63,7 @@ public class AddSatActivity extends Activity {
 	
 	private EditText Sat_namecn,Sat_name,Sat_satno,Sat_typename,Sat_valid,Sat_weight,Sat_launch,Sat_launchtime,Sat_tle1,Sat_tle2,Sat_info;
 	String result;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,6 +73,8 @@ public class AddSatActivity extends Activity {
 	}
 
 	private void init() {
+		myApp = (LocationApplication)getApplication();
+		
 		img_btn_addsat = (ImageButton) findViewById(R.id.img_btn_addsat);
 		img_btn_addsat.setOnClickListener(new ButtonOnClickListener());
 		
@@ -86,8 +88,7 @@ public class AddSatActivity extends Activity {
 		Sat_name = (EditText)findViewById(R.id.addsat_name);
 		
 		Sat_satno = (EditText)findViewById(R.id.addsat_satno);
-		
-		
+
 		Sat_typename = (EditText)findViewById(R.id.addsat_typename);
 		Sat_valid = (EditText)findViewById(R.id.addsat_valid);
 		Sat_weight = (EditText)findViewById(R.id.addsat_weight);
@@ -147,48 +148,97 @@ public class AddSatActivity extends Activity {
 		}
 	}
 	
-   private void showDialog() {
-		new AlertDialog.Builder(this)
-				.setTitle("选择图片")
-				.setPositiveButton("相机", new DialogInterface.OnClickListener() {
+	   private void showDialog() {
+			new AlertDialog.Builder(this)
+					.setTitle("选择图片")
+					.setPositiveButton("相机", new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-									
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						
-						intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tempFile));
-						Log.e("file", tempFile.toString());
-						startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
-					}
-				})
-				.setNegativeButton("相册", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+										
+							Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							
+							intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tempFile));
+							Log.e("file", tempFile.toString());
+							startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+						}
+					})
+					.setNegativeButton("相册", new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-						Intent intent = new Intent(Intent.ACTION_PICK, null);
-						intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-						startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
-					}
-				}).show();
-	}
-   
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+							Intent intent = new Intent(Intent.ACTION_PICK, null);
+							intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+							startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
+						}
+					}).show();
+		}
+
    @Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:
-			photouri = Uri.fromFile(tempFile);
-			startPhotoZoom(Uri.fromFile(tempFile), 400,300);
+			//photouri = Uri.fromFile(tempFile);
+			//startPhotoZoom(Uri.fromFile(tempFile), 2048,2048);
+			try {
+				FileInputStream fin = new FileInputStream(tempFile);  
+	            //可能溢出,简单起见就不考虑太多,如果太大就要另外想办法，比如一次传入固定长度byte[]  
+	            byte[] bytes  = new byte[fin.available()];  
+	            //将文件内容写入字节数组，提供测试的case  
+	            fin.read(bytes);  
+	              
+	            fin.close(); 
+	            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);	        
+				Drawable drawable = new BitmapDrawable(bitmap);
+				img_btn_addsat.setBackgroundDrawable(drawable);
+			} catch (Exception e) {
+               e.printStackTrace();
+			}
 			break;
+
 		case PHOTO_REQUEST_GALLERY:
-			startPhotoZoom(data.getData(), 400,300);
+			if (data != null)
+			{	
+				photouri = data.getData();
+				//Uri uri = data.getData();
+				 
+				String[] proj = { MediaStore.Images.Media.DATA };
+				 
+				Cursor actualimagecursor = managedQuery(photouri,proj,null,null,null);
+				 
+				int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				 
+				actualimagecursor.moveToFirst();
+				 
+				String img_path = actualimagecursor.getString(actual_image_column_index);
+				 
+				tempFile = new File(img_path);
+				try {
+					FileInputStream fin = new FileInputStream(tempFile);  
+		            //可能溢出,简单起见就不考虑太多,如果太大就要另外想办法，比如一次传入固定长度byte[]  
+		            byte[] bytes  = new byte[fin.available()];  
+		            //将文件内容写入字节数组，提供测试的case  
+		            fin.read(bytes);  
+		              
+		            fin.close(); 
+		            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);	           
+					Drawable drawable = new BitmapDrawable(bitmap);
+					img_btn_addsat.setBackgroundDrawable(drawable);
+				} catch (Exception e) {
+	                e.printStackTrace();
+				}
+				//startPhotoZoom(data.getData(), 2048,2048);
+			}
+			//if (data != null) 
+				//setPicToView(data);
 			break;
+
 		case PHOTO_REQUEST_CUT:
 			 Log.e("zoom", "begin2");
 			if (data != null) 
@@ -204,7 +254,7 @@ public class AddSatActivity extends Activity {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
 		// crop为true是设置在开启的intent中设置显示的view可以剪裁
-		intent.putExtra("crop", "true");
+		intent.putExtra("crop", "false");
 
 		// aspectX aspectY 是宽高的比例
 //		intent.putExtra("aspectX", 1);
@@ -228,7 +278,7 @@ public class AddSatActivity extends Activity {
 			Date date = new Date(System.currentTimeMillis());
 			SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
 			Log.e("save",dateFormat.format(date));
-			saveMyBitmap(photo,dateFormat.format(date));//将图片进行存储！！！！！！！！！
+			//saveMyBitmap(photo,dateFormat.format(date));//将图片进行存储！！！！！！！！！
 			
 			Drawable drawable = new BitmapDrawable(photo);
 			img_btn_addsat.setBackgroundDrawable(drawable);
@@ -244,26 +294,26 @@ public class AddSatActivity extends Activity {
 
 	 public void saveMyBitmap(Bitmap mBitmap,String bitName){
 
-		img_src = "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg";
-//        File f = new File( "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg");
+		img_src = Environment.getExternalStorageDirectory()+"/"+bitName + ".jpg";
+//       File f = new File( "/storage/emulated/0/DCIM/Screenshots/"+bitName + ".jpg");
 		File f = new File(img_src);
-        FileOutputStream fOut = null;
-        try {
-                fOut = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-                e.printStackTrace();
-        }
-        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-        try {
-                fOut.flush();
-        } catch (IOException e) {
-                e.printStackTrace();
-        }
-        try {
-                fOut.close();
-        } catch (IOException e) {
-                e.printStackTrace();
-        }
+       FileOutputStream fOut = null;
+       try {
+               fOut = new FileOutputStream(f);
+       } catch (FileNotFoundException e) {
+               e.printStackTrace();
+       }
+       mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+       try {
+               fOut.flush();
+       } catch (IOException e) {
+               e.printStackTrace();
+       }
+       try {
+               fOut.close();
+       } catch (IOException e) {
+               e.printStackTrace();
+       }
 	}
 
 	 public void submit_satinfo(){

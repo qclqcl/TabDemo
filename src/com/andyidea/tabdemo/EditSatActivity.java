@@ -377,7 +377,6 @@ public class EditSatActivity extends Activity {
 	 }
 	 
 	protected void onResume() {
-		 //设置为横屏
 		 img_btn.setImageBitmap(myApp.getbitmap());   //显示图片  
 		 super.onResume();
 		}
