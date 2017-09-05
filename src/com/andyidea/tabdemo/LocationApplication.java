@@ -2,11 +2,10 @@ package com.andyidea.tabdemo;
 
 import satellite.tle.image.Satinfo;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.location.LocationClientOption.LocationMode;
+import com.baidu.mapapi.SDKInitializer;
+import com.andyidea.tabdemo.service.*;
 
 import android.app.Application;
 import android.app.Service;
@@ -20,13 +19,12 @@ import android.os.Vibrator;
  * 百度定位SDK官方网站：http://developer.baidu.com/map/index.php?title=android-locsdk
  */
 public class LocationApplication extends Application {
-    public LocationClient mLocationClient;
-    public MyLocationListener mMyLocationListener;
-    public Vibrator mVibrator;  
-    
+	private LocationService locationService;
+	public Vibrator mVibrator;
+
 	public  Handler handlerB,handlerC,handlerC2,handlerD;
 	public  Runnable runnableB,runnableC,runnableC2,runnableD;
-	   
+
     public int counttest = 0;
     public int counttest_passforecast = 100;
     public double myLatitude,myLongitude,myRadius,myAltitude;
@@ -186,52 +184,40 @@ public class LocationApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mLocationClient = new LocationClient(this.getApplicationContext());
-        mMyLocationListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(mMyLocationListener);
+
+        locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        SDKInitializer.initialize(getApplicationContext());
+		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+		locationService.registerListener(mListener);
+		//注册监听
+		locationService.setLocationOption(locationService.getOption());
+		locationService.start();
     }
+    /*****
+	 *
+	 * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+	 *
+	 */
+	private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
 
-
-    /**
-     * 实现实时位置回调监听
-     */
-    public class MyLocationListener implements BDLocationListener {
- 
 		@Override
-        public void onReceiveLocation(BDLocation location) {						
-			myLatitude = location.getLatitude();
-			myLongitude = location.getLongitude();
-			myRadius = location.getRadius();
-			myTime = location.getTime();
-			
-			if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
-				myAltitude=location.getAltitude();
-			}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
-				myAltitude=0;
-			}			
-        }
-        
-    }
-    
-    public void initLocation(){
-    	
-    	mLocationClient = new LocationClient(this.getApplicationContext());       
-        mLocationClient.registerLocationListener(mMyLocationListener);
-    	
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationMode.Hight_Accuracy);//高精度
-        option.setCoorType("gcj02");//gcj02，设置返回的定位结果坐标系
-        int span=1000;
-        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-        option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
-        option.setIgnoreKillProcess(true);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-       
-        mLocationClient.setLocOption(option);
-        
-        mLocationClient.start();//定位SDK start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
-        mLocationClient.requestLocation();
-    }
+		public void onReceiveLocation(BDLocation location) {
+			// TODO Auto-generated method stub
+			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+				
+				myLatitude = location.getLatitude();
+				myLongitude = location.getLongitude();
+				myRadius = location.getRadius();
+				myTime = location.getTime();
+				
+				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
+					myAltitude=location.getAltitude();
+				}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
+					myAltitude=0;
+				}
+			}
+		}
+	};
 
 }

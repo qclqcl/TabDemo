@@ -86,9 +86,7 @@ public class CActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fragment_3);
-		
-		((LocationApplication)getApplication()).initLocation();
-		
+
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");
 		Buttonleft.setOnClickListener(new ButtonOnClickListener());

@@ -101,9 +101,7 @@ public class BActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fragment_2);
-		
-		((LocationApplication)getApplication()).initLocation();//初始化百度地图SDK
-					
+
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");
 		Buttonleft.setOnClickListener(new ButtonOnClickListener());

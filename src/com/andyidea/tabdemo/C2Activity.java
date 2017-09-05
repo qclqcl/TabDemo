@@ -89,9 +89,7 @@ public class C2Activity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fragment_3_2);
-		
-		((LocationApplication)getApplication()).initLocation();
-		
+
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");
 		
