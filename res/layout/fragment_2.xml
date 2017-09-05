@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/toptitle"
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/Buttonleft"
+                style="@style/main_tab_bottom"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"
+                android:textColor="@color/black"
+                android:textSize="20px" />
+            
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+            
+            
+            <Button
+                android:id="@+id/Buttonright"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"            
+                android:gravity="center"
+                android:text=">>"
+                android:textSize="20px"
+                android:textColor="@color/black" />
+            
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+   
+        <TextView
+            android:id="@+id/TextViewB0" 
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"  
+            android:gravity="center"          
+            android:background="@drawable/title_bg"                     
+            android:textColor="@color/black" />
+
+            
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+
+            <Button
+                android:id="@+id/Buttonback"
+                style="@style/main_tab_bottom"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"
+                android:text="快退"
+                android:textColor="@color/black"
+                android:textSize="20px" />
+            
+ 			<View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+            <Button
+                android:id="@+id/Buttonnormal"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"             
+                android:gravity="center"
+                android:text="正常"
+                android:textSize="20px"
+                android:textColor="@color/black" />             
+            
+            
+ 			<View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+            <Button
+                android:id="@+id/Buttonfast"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"             
+                android:gravity="center"
+                android:text="快进"
+                android:textSize="20px"
+                android:textColor="@color/black" />            
+            
+            
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+            
+            
+            <Button
+                android:id="@+id/ButtonPrefs"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"             
+                android:gravity="center"
+                android:text="设置"
+                android:textSize="20px"
+                android:textColor="@color/black" />
+            
+ 		</LinearLayout>
+
+   <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"                           
+            android:orientation="vertical"
+            android:gravity="center"                        
+            android:layout_gravity="center"
+            android:layout_marginTop="60dip"
+            >
+        <com.andyidea.tabdemo.image.DragImageView
+	        android:id="@+id/div_main"
+	        android:layout_width="wrap_content"
+	        android:layout_height="540px"
+	        android:scaleType="center"
+	        android:gravity="center"
+	     />
+   </LinearLayout >
+
+     <LinearLayout         
+           android:layout_width="fill_parent"
+           android:layout_height="25dp"
+           android:layout_alignParentBottom="true"         
+           android:orientation="vertical" >
+
+          <TextView
+            android:id="@+id/TextViewB1" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"                               
+            android:textColor="@color/white"
+           />   
+     </LinearLayout> 
+
+</RelativeLayout>

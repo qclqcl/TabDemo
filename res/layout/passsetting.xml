@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="3dip" >
+
+            <Button
+                android:id="@+id/ButtonDone"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"             
+                android:gravity="center"
+                android:text="返回"
+                android:textSize="20px"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black" />
+            
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>
+            
+            
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"           
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="过顶预报设置"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textSize="30px"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/et"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dip"
+        android:editable="false" />
+
+    <Button
+        android:id="@+id/dateBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="时间设定" />
+    
+    <TextView
+        android:id="@+id/et2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:editable="false" />
+
+    <Button
+        android:id="@+id/angleBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="角度设定" />    
+
+    <TextView
+        android:id="@+id/et3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:editable="false" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="设置观测站位置"
+        android:editable="false" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="    是否当前位置              " />
+		<ToggleButton
+		    android:id="@+id/Toggle_position"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@android:color/transparent"
+	        android:button="@drawable/toggle_btn"
+	        android:checked="true"
+	        android:text=""
+	        android:textOff=""
+	        android:textOn="" />
+	</LinearLayout>
+
+
+	<LinearLayout 
+	    android:id="@+id/linearLayout_latitude"
+		android:orientation="horizontal"
+		android:layout_gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站经度值:" />
+		<EditText
+	        android:id ="@+id/watch_latitude"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:imeOptions="actionNext"
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_longitude"
+			android:textColor="@color/black"
+			android:hint="请输入观测站经度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/linearLayout_longitude"
+		android:layout_gravity="center"
+		android:orientation="horizontal" 
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站纬度值:"/>
+		<EditText 
+	        android:id ="@+id/watch_longitude"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:imeOptions="actionNext" 
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_altitude" 
+			android:textColor="@color/black"
+			android:hint="请输入观测站纬度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/linearLayout_altitude"
+	    android:layout_gravity="center"
+		android:orientation="horizontal" 
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/black"
+			android:text="观测站高度值:"/>
+		<EditText 
+	        android:id ="@+id/watch_altitude"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:imeOptions="actionNext" 
+			android:singleLine="true"
+			android:nextFocusForward="@+id/watch_latitude" 
+			android:textColor="@color/black"
+			android:hint="请输入观测站高度值"
+			android:textSize="12dp"
+			android:textColorHint="#707070"/>
+	</LinearLayout>
+</LinearLayout>

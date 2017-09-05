@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="3dip" >
+
+            <Button
+                android:id="@+id/ButtonDone_e"
+                style="@style/main_tab_bottom"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"
+                android:gravity="center"
+                android:text="返回"
+                android:textSize="20px"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black" />
+
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.0"
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="帮助文档"
+            android:textSize="30px"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/black" />       
+    </LinearLayout>
+
+	<ScrollView
+	    android:id="@+id/scrollView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent">
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:orientation="vertical"
+	        android:layout_height="wrap_content">
+
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help1" />
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help2" />
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help3" />
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help4" />
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help5" />
+	        <ImageView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:scaleType="fitXY"
+	            android:background="@drawable/help6" />	        
+	    </LinearLayout>
+	</ScrollView>
+
+
+</LinearLayout>

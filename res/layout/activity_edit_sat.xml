@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="fill_parent"
+     android:background="#efefef" >
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+   <LinearLayout
+        android:id="@+id/edit_linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="3dip" >
+
+            <Button
+                android:id="@+id/ButtonDone_a3"
+                style="@style/main_tab_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"
+                android:text="返回"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textSize="20px" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="#FFFF00" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.98"
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="卫星编辑"
+            android:textColor="@color/black"
+            android:textSize="20px" />
+    </LinearLayout> 
+
+   <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="10dp"
+    />
+
+    <ImageButton 
+        android:id="@+id/img_btn"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:background="@drawable/transparent"/>
+
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="名称:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_namecn"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_name" 
+				android:textColor="@color/black"
+				android:textSize="12dp"
+				android:hint="请输入卫星名称"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+    
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="英文:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_name"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:textColor="@color/black"
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_satno" 
+				android:textSize="12dp"
+				android:hint="请输入卫星英文名称"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+	 
+
+	
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="类型:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_typename"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/valid" 
+				android:textColor="@color/black"
+				android:textSize="12dp"
+				android:hint="请输入卫星类型"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="在轨 :"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_valid"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_weight" 
+				android:textColor="@color/black"
+				android:textSize="12dp"
+				android:hint="请输入卫星是否在轨"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="重量:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_weight"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:textColor="@color/black"
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_launch" 
+				android:textSize="12dp"
+				android:hint="请输入卫星重量"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="发射工具:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_launch"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_launchtime" 
+				android:textColor="@color/black"
+				android:textSize="12dp"
+				android:hint="请输入卫星发射工具"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="发射时间:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_launchtime"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/sat_tle1" 
+				android:textColor="@color/black"
+				android:textSize="12dp"
+				android:hint="请输入卫星发射时间"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+
+
+	<RelativeLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+    <ImageView
+		android:id="@+id/mark_pic"
+		android:src="@drawable/earth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:paddingTop="8dp"
+		android:gravity="center"
+		android:layout_alignParentLeft="true"/>
+		<LinearLayout 
+			android:orientation="horizontal" 
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:paddingLeft="8dp"
+			android:layout_toRightOf="@id/mark_pic">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="8dp"
+				android:textColor="@color/black"
+				android:text="资料:"
+				android:textSize="12dp" />
+			<EditText 
+		        android:id ="@+id/sat_info"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content" 
+				android:textColor="@color/black"
+				android:imeOptions="actionNext" 
+				android:singleLine="true"
+				android:nextFocusForward="@+id/submit_editsat" 
+				android:textSize="12dp"
+				android:hint="请输入卫星资料"
+				android:textColorHint="#707070"/>
+		</LinearLayout>
+	</RelativeLayout>
+    
+    <Button 
+        android:id="@+id/submit_editsat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="点击上传"
+        android:layout_gravity="center"/>
+	
+</LinearLayout>
+</ScrollView>

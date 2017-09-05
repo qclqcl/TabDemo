@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="3dip" >       
+                            
+            <Button
+                android:id="@+id/ButtonDone"                                           
+                style="@style/main_tab_bottom"          
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="8.0dip"             
+                android:gravity="center"
+                android:text="返回"
+                android:textSize="20px"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black" />    
+                        
+            <View  
+		    android:layout_width="1dip" 
+		    android:layout_height="fill_parent"
+		    android:background="#FFFF00"
+		    android:layout_gravity="center_horizontal"
+    		/>                     
+        </LinearLayout>
+<!-- 
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.0"
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="Satellite Settings"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/black" />
+ -->        
+         <TextView
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.98"
+            android:background="@drawable/title_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="卫星设置"
+            android:textColor="@color/black"
+            android:textSize="30px" />
+        
+        
+
+    </LinearLayout>
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/ButtonBeidou"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="北斗导航卫星" />
+    <Button
+        android:id="@+id/ButtonGPS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="GPS导航卫星" />
+    <Button
+        android:id="@+id/ButtonGlonass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Glonass导航卫星" />
+    <Button
+        android:id="@+id/ButtonGalileo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Galileo导航卫星" />
+    <Button
+        android:id="@+id/ButtonWeather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="气象卫星" />
+    <Button
+        android:id="@+id/ButtonGlobal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="全球星通信卫星" /> 
+    <Button
+        android:id="@+id/ButtonIridium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="铱星" />
+    <Button
+        android:id="@+id/ButtonScience"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="科学卫星" />
+    <Button
+        android:id="@+id/ButtonSpace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="空间站" />    
+    <Button
+        android:id="@+id/ButtonRadar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="其他卫星" />
+
+    <Button
+        android:id="@+id/ButtonAddSat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=" 添加卫星   " />
+<!--     
+    <Button
+        android:id="@+id/ButtonCommunication"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=" 通信卫星   " />
+    <Button
+        android:id="@+id/ButtonRemote "
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=" 遥感卫星    " />
+    <Button
+        android:id="@+id/ButtonUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"       
+        android:text="更新数据" />
+-->
+     </LinearLayout> 
+
+
+</LinearLayout>
