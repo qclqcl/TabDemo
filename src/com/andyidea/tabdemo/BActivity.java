@@ -2,9 +2,23 @@ package com.andyidea.tabdemo;
 
 
 import com.andyidea.tabdemo.image.*;
+import com.andyidea.tabdemo.service.*;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import name.gano.astro.AER;
@@ -32,6 +46,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -49,6 +64,12 @@ import android.widget.Toast;
 
 
 public class BActivity extends Activity{
+
+	private MapView mMapView = null;
+	private BaiduMap mBaiduMap;
+	private LocationService locService;
+	private LinkedList<LocationEntity> locationList = new LinkedList<LocationEntity>(); // 存放历史定位结果的链表，最大存放当前结果的前5次定位结果
+
 	private Button Buttonleft,Buttonright,ButtonPrefs;
 	private Button Buttonback,Buttonnormal,Buttonfast;
 	
@@ -57,19 +78,19 @@ public class BActivity extends Activity{
 	private LocationApplication myApp;
 	private int factorOneInt = 0;
 	
-	//ͼƬ����ر���
-	private int window_width, window_height;// �ؼ�����
-	private DragImageView dragImageView;// �Զ���ؼ�
-	private int state_height;// ״̬���ĸ߶�
+	//图片的相关变量
+	private int window_width, window_height;// 控件宽度
+	private DragImageView dragImageView;// 自定义控件
+	private int state_height;// 状态栏的高度
 	private ViewTreeObserver viewTreeObserver;
 	
-	//���߷���ĳ�ʼ��
+	//画线方面的初始化
 	ImageView img;
 	private Bitmap imgMarker;
-	private int width,height;  //ͼƬ�ĸ߶ȺͿ���
-	private Bitmap imgTemp;    //��ʱ���ͼ
+	private int width,height;  //图片的高度和宽带
+	private Bitmap imgTemp;    //临时标记图
 	
-	//��ʱ���ı�����ʼ��
+	//定时器的变量初始化
 //	public  Handler handlerB;
 //	public  Runnable runnableB;
 	private int x,y;
@@ -82,7 +103,7 @@ public class BActivity extends Activity{
 	private Bitmap personBitmap;
 	private Bitmap satelliteBitmap;
 	private Bitmap satellitenoBitmap;
-	TLE newTLE = new TLE("����M6", 
+	TLE newTLE = new TLE("北斗M6", 
 			"1 38775U 12050B   16187.42076194  .00000033  00000-0  00000+0 0  9999",
 			"2 38775  54.8355 184.9940 0021924 230.5817 240.7757  1.86233165 25993");	
 	double[] gsLLA={21.56694,-158.2519,317.9};
@@ -101,6 +122,18 @@ public class BActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fragment_2);
+
+		mMapView = (MapView) findViewById(R.id.bmapView);
+		mBaiduMap = mMapView.getMap();
+		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+		mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15));
+		locService = ((LocationApplication) getApplication()).locationService;
+		LocationClientOption mOption = locService.getDefaultLocationClientOption();
+		mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving); 
+		mOption.setCoorType("bd09ll");
+		locService.setLocationOption(mOption);
+		locService.registerListener(listener);
+		locService.start();
 
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");
@@ -145,7 +178,7 @@ public class BActivity extends Activity{
 //		Log.e("??????????????",myApp.getTotal()+"");
 		
 		
-		// ��ȡ��Ҋ����߶� 
+		// 获取可見区域高度 
 		WindowManager manager = getWindowManager();
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
@@ -154,7 +187,7 @@ public class BActivity extends Activity{
 		
 		Bitmap bmp = BitmapUtil.ReadBitmapById(this, R.drawable.transparent1080,window_width, window_height);
 		
-		//���ڻ��ߵı���������
+		//关于画线的背景的设置
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));
@@ -205,9 +238,9 @@ public class BActivity extends Activity{
 
 		dragImageView.setBackgroundDrawable(createDrawable('A',200,200));
 		dragImageView.setImageBitmap(bmp);
-		dragImageView.setmActivity(this);//ע��Activity.
+		dragImageView.setmActivity(this);//注入Activity.
 //		dragImageView.setScale(5.0f);
-		// ����״̬���߶� 
+		// 测量状态栏高度 
 		viewTreeObserver = dragImageView.getViewTreeObserver();
 		viewTreeObserver
 				.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -215,7 +248,7 @@ public class BActivity extends Activity{
 					@Override
 					public void onGlobalLayout() {
 						if (state_height == 0) {
-							// ��ȡ״�����߶�
+							// 获取状况栏高度
 							Rect frame = new Rect();
 							getWindow().getDecorView()
 									.getWindowVisibleDisplayFrame(frame);
@@ -227,7 +260,7 @@ public class BActivity extends Activity{
 					}
 				});
 
-		//��ʱ��
+		//定时器
 		myApp.handlerB = new Handler();
 		myApp.runnableB = new Runnable() {
 			@SuppressWarnings("deprecation")
@@ -255,21 +288,127 @@ public class BActivity extends Activity{
 				LLA gs = new LLA(gsLLA[0],gsLLA[1],gsLLA[2]);
 				//TLEDraw.GetAzimuth(curlla.getLon(), curlla.getLat(), gs.getLon(), gs.getLat());
 				
-				TextView1.setText(/*"X ="+dragImageView.geteventX()+"//Y ="+dragImageView.geteventY()+newTLE.getSatName().trim()+*/"���ǣ�����:"+curlla.getLatStr()+"��"+"γ��:"+curlla.getLonStr()+"��"+"�߶�:"+curlla.getAltStr()+"��\n"+
-						"�۲�վ������:"+gs.getLatStr()+"��"+"γ��:"+gs.getLonStr()+"��"+"�߶�:"+gs.getAltStr()+"��");
+				TextView1.setText(/*"X ="+dragImageView.geteventX()+"//Y ="+dragImageView.geteventY()+newTLE.getSatName().trim()+*/"卫星（经度:"+curlla.getLatStr()+"，"+"纬度:"+curlla.getLonStr()+"，"+"高度:"+curlla.getAltStr()+"）\n"+
+						"观测站（经度:"+gs.getLatStr()+"，"+"纬度:"+gs.getLonStr()+"，"+"高度:"+gs.getAltStr()+"）");
 			}
 		};
-		myApp.handlerB.postDelayed(myApp.runnableB, 0);  //��ʼ������
-//		handler.removeCallbacks(runnable); //ֹͣ������
-		
- 
+		myApp.handlerB.postDelayed(myApp.runnableB, 0);  //开始计数器
+//		handler.removeCallbacks(runnable); //停止计数器
+	}
+
+//----------------------------------------------------------------------------------//
+	/***
+	 * 定位结果回调，在此方法中处理定位结果
+	 */
+	BDAbstractLocationListener listener = new BDAbstractLocationListener() {
+
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+			// TODO Auto-generated method stub
+
+			if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
+				Message locMsg = locHander.obtainMessage();
+				Bundle locData;
+				locData = Algorithm(location);
+				if (locData != null) {
+					locData.putParcelable("loc", location);
+					locMsg.setData(locData);
+					locHander.sendMessage(locMsg);
+				}
+			}
+		}
+
+	};
+	
+	/***
+	 * 平滑策略代码实现方法，主要通过对新定位和历史定位结果进行速度评分，
+	 * 来判断新定位结果的抖动幅度，如果超过经验值，则判定为过大抖动，进行平滑处理,若速度过快，
+	 * 则推测有可能是由于运动速度本身造成的，则不进行低速平滑处理 ╭(●｀∀´●)╯
+	 * 
+	 * @param BDLocation
+	 * @return Bundle
+	 */
+	private Bundle Algorithm(BDLocation location) {
+		Bundle locData = new Bundle();
+		double curSpeed = 0;
+		if (locationList.isEmpty() || locationList.size() < 2) {
+			LocationEntity temp = new LocationEntity();
+			temp.location = location;
+			temp.time = System.currentTimeMillis();
+			locData.putInt("iscalculate", 0);
+			locationList.add(temp);
+		} else {
+			if (locationList.size() > 5)
+				locationList.removeFirst();
+			double score = 0;
+			for (int i = 0; i < locationList.size(); ++i) {
+				LatLng lastPoint = new LatLng(locationList.get(i).location.getLatitude(),
+						locationList.get(i).location.getLongitude());
+				LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
+				double distance = DistanceUtil.getDistance(lastPoint, curPoint);
+				curSpeed = distance / (System.currentTimeMillis() - locationList.get(i).time) / 1000;
+				score += curSpeed * Utils.EARTH_WEIGHT[i];
+			}
+			if (score > 0.00000999 && score < 0.00005) { // 经验值,开发者可根据业务自行调整，也可以不使用这种算法
+				location.setLongitude(
+						(locationList.get(locationList.size() - 1).location.getLongitude() + location.getLongitude())
+								/ 2);
+				location.setLatitude(
+						(locationList.get(locationList.size() - 1).location.getLatitude() + location.getLatitude())
+								/ 2);
+				locData.putInt("iscalculate", 1);
+			} else {
+				locData.putInt("iscalculate", 0);
+			}
+			LocationEntity newLocation = new LocationEntity();
+			newLocation.location = location;
+			newLocation.time = System.currentTimeMillis();
+			locationList.add(newLocation);
+
+		}
+		return locData;
 	}
 	
+	/***
+	 * 接收定位结果消息，并显示在地图上
+	 */
+	private Handler locHander = new Handler() {
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			try {
+				BDLocation location = msg.getData().getParcelable("loc");
+				int iscal = msg.getData().getInt("iscalculate");
+				if (location != null) {
+					LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
+					// 构建Marker图标
+					BitmapDescriptor bitmap = null;
+					if (iscal == 0) {
+						bitmap = BitmapDescriptorFactory.fromResource(R.drawable.huaji); // 非推算结果
+					} else {
+						bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_focuse_mark); // 推算结果
+					}
+
+					// 构建MarkerOption，用于在地图上添加Marker
+					OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+					// 在地图上添加Marker，并显示
+					mBaiduMap.addOverlay(option);
+					mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+	};
+
+//----------------------------------------------------------------------------------//
 	private void initDraw(){
 		imgTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		canvas = new Canvas(imgTemp);
-		Paint paint = new Paint(); // ��������
+		Paint paint = new Paint(); // 建立画笔
 		paint.setDither(true);
 		paint.setFilterBitmap(true);
 		Rect src = new Rect(0, 0, width, height);
@@ -299,7 +438,7 @@ public class BActivity extends Activity{
 /*
 		imgTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(imgTemp);
-		Paint paint = new Paint(); // ��������
+		Paint paint = new Paint(); // 建立画笔
 		paint.setDither(true);
 		paint.setFilterBitmap(true);
 		Rect src = new Rect(0, 0, width, height);
@@ -404,7 +543,7 @@ public class BActivity extends Activity{
 		}
 		
 		textPaint.setColor(Color.GREEN);
-		TLEDraw.drawMapSatellite(canvas, "�۲��",mylla,canvas.getWidth()/2,canvas.getHeight()/2,canvas.getWidth()/2,canvas.getHeight()/2,textPaint,false,0);	
+		TLEDraw.drawMapSatellite(canvas, "观测点",mylla,canvas.getWidth()/2,canvas.getHeight()/2,canvas.getWidth()/2,canvas.getHeight()/2,textPaint,false,0);	
 
 		//canvas.drawCircle(x, y, 50, textPaint);
 			
@@ -463,7 +602,7 @@ public class BActivity extends Activity{
 	        	   interval = -600;
 	        	   break;
 	           case R.id.Buttonnormal:
-//	        	   handler.removeCallbacks(runnable); //ֹͣ������
+//	        	   handler.removeCallbacks(runnable); //停止计数器
 	        	   timer = new Time();
 	        	   interval =1;
 	        	   break;   
@@ -479,7 +618,7 @@ public class BActivity extends Activity{
 	}
 	
 	/**
-	 * ��ȡ������Դ��ͼƬ
+	 * 读取本地资源的图片
 	 * 
 	 * @param context
 	 * @param resId
@@ -490,14 +629,14 @@ public class BActivity extends Activity{
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
-		// ��ȡ��ԴͼƬ
+		// 获取资源图片
 		InputStream is = context.getResources().openRawResource(resId);
 		return BitmapFactory.decodeStream(is, null, opt);
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	if (keyCode == KeyEvent.KEYCODE_MENU) { // ���/����/���η��ؼ�
+	if (keyCode == KeyEvent.KEYCODE_MENU) { // 监控/拦截/屏蔽返回键
 	//do something
 		Intent intent = new Intent();
 		intent.setClass(BActivity.this,SettingTabActivity.class);
@@ -506,7 +645,7 @@ public class BActivity extends Activity{
 	
 	if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
         if((System.currentTimeMillis()-exitTime) > 2000){  
-            Toast.makeText(getApplicationContext(), "�ٰ�һ���˳�����", Toast.LENGTH_SHORT).show();                                
+            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
             exitTime = System.currentTimeMillis();   
         } else {
             finish();
@@ -520,7 +659,10 @@ public class BActivity extends Activity{
 	
 	@Override
 	protected void onResume() {
-	 //����Ϊ����
+	// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+	mMapView.onResume();
+
+	 //设置为横屏
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));
@@ -563,5 +705,35 @@ public class BActivity extends Activity{
 			gsLLA[1] = myApp.myLongitude;
 			gsLLA[2] = myApp.myAltitude;
 		}
+	}
+	
+//--------------------------------------------------------//
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// 在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+//		WriteLog.getInstance().close();
+		locService.unregisterListener(listener);
+		locService.stop();
+		mMapView.onDestroy();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+		mMapView.onPause();
+
+	}
+	
+	/**
+	 * 封装定位结果和时间的实体类
+	 * 
+	 * @author baidu
+	 *
+	 */
+	class LocationEntity {
+		BDLocation location;
+		long time;
 	}
 }

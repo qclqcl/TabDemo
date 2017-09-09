@@ -19,7 +19,7 @@ import android.os.Vibrator;
  * 百度定位SDK官方网站：http://developer.baidu.com/map/index.php?title=android-locsdk
  */
 public class LocationApplication extends Application {
-	private LocationService locationService;
+	public LocationService locationService;
 	public Vibrator mVibrator;
 
 	public  Handler handlerB,handlerC,handlerC2,handlerD;
