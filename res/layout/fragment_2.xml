@@ -167,7 +167,6 @@
             android:layout_marginTop="60dip"
             >
         <com.andyidea.tabdemo.image.DragImageView
-            android:visibility="visible"
 	        android:id="@+id/div_main"
 	        android:layout_width="wrap_content"
 	        android:layout_height="540px"
@@ -179,7 +178,6 @@
 		<com.baidu.mapapi.map.MapView
 			android:layout_marginTop="32dp"
 			android:layout_marginBottom="25dp"
-			android:visibility="gone"
 			android:id="@+id/bmapView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

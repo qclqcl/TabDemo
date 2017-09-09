@@ -117,6 +117,7 @@ public class MapSettingActivity extends Activity{
 		list.add("map0");
 		list.add("map1");
 		list.add("map2");
+		list.add("baidumap");
 		// 第二步：为下拉列表定义一个适配器，这里就用到里前面定义的list。
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_single_choice , list);

@@ -65,6 +65,8 @@ import android.widget.Toast;
 
 public class BActivity extends Activity{
 
+	private static final String ACTIVITY_TAG="BActivity";
+	
 	private MapView mMapView = null;
 	private BaiduMap mBaiduMap;
 	private LocationService locService;
@@ -224,12 +226,29 @@ public class BActivity extends Activity{
         MapNo = sharedPreferences.getInt("MapNo", 0);
         DisSatName = sharedPreferences.getInt("DisSatName", 0);
         DisSatCoverage = sharedPreferences.getInt("DisSatCoverage", 0);
-		if(MapNo == 0)
+//		if(MapNo == 0)
+//			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+//		if(MapNo == 1)
+//			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+//		if(MapNo == 2)
+//			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+        if(MapNo == 0){
+        	mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-		if(MapNo == 1)
+		}
+		else if(MapNo == 1){
+			mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
-		if(MapNo == 2)
+		}
+		else if(MapNo == 2){
+			mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+		}
+		else if(MapNo == 3)
+		{
+			mMapView.setVisibility(View.VISIBLE);
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+		}
 
 		width = imgMarker.getWidth();
 		height = imgMarker.getHeight();
@@ -662,6 +681,9 @@ public class BActivity extends Activity{
 	// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
 	mMapView.onResume();
 
+	if (mBaiduMap != null)
+		mBaiduMap.clear();
+	
 	 //设置为横屏
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
@@ -681,12 +703,24 @@ public class BActivity extends Activity{
         MapNo = sharedPreferences.getInt("MapNo", 0);
         DisSatName = sharedPreferences.getInt("DisSatName", 0);
         DisSatCoverage = sharedPreferences.getInt("DisSatCoverage", 0);
-		if(MapNo == 0)
+        if(MapNo == 0){
+        	mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-		if(MapNo == 1)
+		}
+		else if(MapNo == 1){
+			mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
-		if(MapNo == 2)
+		}
+		else if(MapNo == 2){
+			mMapView.setVisibility(View.GONE);
 			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+		}
+		else if(MapNo == 3)
+		{
+			mMapView.setVisibility(View.VISIBLE);
+//			dragImageView.setVisibility(View.GONE);
+			imgMarker = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+		}
 
 	 super.onResume();
 	}
