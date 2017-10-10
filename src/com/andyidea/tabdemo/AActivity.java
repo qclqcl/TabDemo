@@ -4,6 +4,7 @@ package com.andyidea.tabdemo;
 
 import com.andyidea.tabdemo.data.Data;
 import com.andyidea.tabdemo.db.DatabaseHelper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,17 +26,22 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -60,7 +66,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 
 public class AActivity extends Activity{
-	
+
 	private Button ButtonAll;
 	private Button ButtonPrefs;
 
@@ -91,7 +97,7 @@ public class AActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fragment_1);
-		
+
 		ButtonAll = (Button)findViewById(R.id.ButtonAll);
 		ButtonAll.setOnClickListener(new ButtonOnClickListener());
 		
@@ -107,6 +113,8 @@ public class AActivity extends Activity{
 		for(int i=0;i<200;i++){
 			truth_table[i] = "position"+i;
 		}
+
+		initGPS();
 
 		//SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
 		//Editor editor = sharedPreferences.edit();
@@ -130,7 +138,43 @@ public class AActivity extends Activity{
 		   }  
 		*/
 	}
-	
+
+	private void initGPS() {
+		LocationManager locationManager = (LocationManager) this
+				.getSystemService(Context.LOCATION_SERVICE);
+		// 判断GPS模块是否开启，如果没有则开启
+		if (!locationManager
+				.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+			Toast.makeText(getApplicationContext(), "请打开GPS",
+					Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setMessage("请打开GPS");
+			dialog.setPositiveButton("确定",
+					new android.content.DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							// 转到手机设置界面，用户设置GPS
+							Intent intent = new Intent(
+									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+							startActivityForResult(intent, 0); // 设置完成后返回到原来的界面
+						}
+					});
+			dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					arg0.dismiss();
+				}
+			} );
+			dialog.show();
+		} else {
+			// 弹出Toast
+//	          Toast.makeText(getApplicationContext(), "GPS is ready",
+//	                  Toast.LENGTH_LONG).show();
+//	          // 弹出对话框
+//	          new AlertDialog.Builder(this).setMessage("GPS is ready")
+//	                  .setPositiveButton("OK", null).show();
+		}
+	}
 
 	private void setListener() {
 
@@ -780,4 +824,5 @@ private void update(){
 		}
 
 	}
+
 }
