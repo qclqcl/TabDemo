@@ -1,5 +1,7 @@
 package com.andyidea.tabdemo;
 
+import java.util.List;
+
 import satellite.tle.image.Satinfo;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -9,9 +11,13 @@ import com.andyidea.tabdemo.service.*;
 
 import android.app.Application;
 import android.app.Service;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.widget.Toast;
 
 /**
  * 主Application，所有百度定位SDK的接口说明请参考线上文档：http://developer.baidu.com/map/loc_refer/index.html
@@ -21,6 +27,8 @@ import android.os.Vibrator;
 public class LocationApplication extends Application {
 	public LocationService locationService;
 	public Vibrator mVibrator;
+	private LocationManager locationManager;
+	private String locationProvider;
 
 	public  Handler handlerB,handlerC,handlerC2,handlerD;
 	public  Runnable runnableB,runnableC,runnableC2,runnableD;
@@ -189,10 +197,11 @@ public class LocationApplication extends Application {
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(getApplicationContext());
 		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
-		locationService.registerListener(mListener);
+//		locationService.registerListener(mListener);
 		//注册监听
-		locationService.setLocationOption(locationService.getOption());
-		locationService.start();
+//		locationService.setLocationOption(locationService.getOption());
+//		locationService.start();
+        getloctioninfo();
     }
     /*****
 	 *
@@ -200,9 +209,9 @@ public class LocationApplication extends Application {
 	 *
 	 */
 	private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
-
 		@Override
 		public void onReceiveLocation(BDLocation location) {
+
 			// TODO Auto-generated method stub
 			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
 				
@@ -219,5 +228,30 @@ public class LocationApplication extends Application {
 			}
 		}
 	};
+
+	public void getloctioninfo(){
+        //获取地理位置管理器
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //获取所有可用的位置提供器
+        List<String> providers = locationManager.getProviders(true);
+        if(providers.contains(LocationManager.GPS_PROVIDER)){
+            //如果是GPS
+            locationProvider = LocationManager.GPS_PROVIDER;
+        }else if(providers.contains(LocationManager.NETWORK_PROVIDER)){
+            //如果是Network
+            locationProvider = LocationManager.NETWORK_PROVIDER;
+        }else{
+            Toast.makeText(this, "没有可用的位置提供器", Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        //获取Location
+        Location location = locationManager.getLastKnownLocation(locationProvider);
+        if(location!=null){
+        	//不为空,显示地理位置经纬度
+        	myLatitude = location.getLatitude();
+			myLongitude = location.getLongitude();
+			myAltitude = location.getAltitude();
+        }
+	}
 
 }
