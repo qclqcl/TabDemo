@@ -291,8 +291,9 @@ public class BActivity extends Activity{
 					    dragImageView.setScale(6.0f);
 				}
 
-				locService.registerListener(listener);
-				locService.start();
+//				locService.registerListener(listener);
+//				locService.start();
+				locService.stop();
 
 //				dragImageView.setScale(5.0f);
 				dragImageView.setBackgroundDrawable(createDrawable('A',x++,y++));
@@ -682,13 +683,9 @@ public class BActivity extends Activity{
 	
 	@Override
 	protected void onResume() {
-	// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-	mMapView.onResume();
+		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+		mMapView.onResume();
 
-	locService.registerListener(listener);
-	locService.start();
-	
-	 //设置为横屏
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));
