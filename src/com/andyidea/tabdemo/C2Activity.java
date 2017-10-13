@@ -388,9 +388,13 @@ public class C2Activity extends Activity{
 			
 		}else
 		{
-			gsLLA[0] = myApp.myLatitude;
-			gsLLA[1] = myApp.myLongitude;
-			gsLLA[2] = myApp.myAltitude;
+//			gsLLA[0] = myApp.myLatitude;
+//			gsLLA[1] = myApp.myLongitude;
+//			gsLLA[2] = myApp.myAltitude;
+
+			gsLLA[0] = myApp.getcurrentLatitude();
+			gsLLA[1] = myApp.getcurrentLongitude();
+			gsLLA[2] = myApp.getcurrentAltitude();
 		}
 	}
 }

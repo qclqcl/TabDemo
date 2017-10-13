@@ -104,7 +104,19 @@ public class LocationApplication extends Application {
     public float getWatchAltitude(){
     	return watchAltitude;
     }
-    
+    public double getcurrentLatitude(){
+    	return myLatitude;
+    }
+    public double getcurrentLongitude(){
+    	return myLongitude;
+    }
+    public double getcurrentAltitude(){
+    	return myAltitude;
+    }
+    public double getcurrentRadius(){
+    	return myRadius;
+    }
+
     //get risetime,settime,riseazimuth,setazimuth risetimecount
     public String getrisetime(Integer i){
     	return risetime[i];
@@ -169,6 +181,19 @@ public class LocationApplication extends Application {
     public void setWatchAltitude(float watchAltitude){
     	this.watchAltitude = watchAltitude;
     }
+    public void setCurrentLatitude(double myLatitude){
+    	this.myLatitude = myLatitude;
+    }
+    public void setCurrentLongitude(double myLongitude){
+    	this.myLongitude = myLongitude;
+    }
+    public void setCurrentAltitude(double myAltitude){
+    	this.myAltitude = myAltitude;
+    }
+    public void setCurrentRadius(double myRadius){
+    	this.myRadius = myRadius;
+    }
+
     //get risetime,settime,riseazimuth,setazimuth
     public void setrisetime(String risetime,Integer i){
     	this.risetime[i] = risetime;
@@ -193,22 +218,23 @@ public class LocationApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        locationService = new LocationService(getApplicationContext());
-        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+		locationService = new LocationService(getApplicationContext());
+//		mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(getApplicationContext());
 		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
-		locationService.registerListener(mListener);
+//		locationService.registerListener(mListener);
 		//注册监听
 //		locationService.setLocationOption(locationService.getOption());
 //		locationService.start();
-        getloctioninfo();
+//      getloctioninfo();
     }
     /*****
 	 *
 	 * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
 	 *
 	 */
-	private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+/*
+	public BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 
@@ -219,7 +245,6 @@ public class LocationApplication extends Application {
 				myLongitude = location.getLongitude();
 				myRadius = location.getRadius();
 				myTime = location.getTime();
-				
 				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
 					myAltitude=location.getAltitude();
 				}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
@@ -228,7 +253,8 @@ public class LocationApplication extends Application {
 			}
 		}
 	};
-
+*/
+/*
 	public void getloctioninfo(){
         //获取地理位置管理器
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -253,5 +279,5 @@ public class LocationApplication extends Application {
 			myAltitude += location.getAltitude();
         }
 	}
-
+*/
 }

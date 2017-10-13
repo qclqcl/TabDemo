@@ -687,7 +687,7 @@ public class BActivity extends Activity{
 		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
 		mMapView.onResume();
 		mBaiduMap.clear();
-		myApp.getloctioninfo();
+//		myApp.getloctioninfo();
 
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
@@ -698,7 +698,7 @@ public class BActivity extends Activity{
 		initgslla();
 		timer = new Time();
 
-		LatLng point = new LatLng(myApp.myLatitude, myApp.myLongitude);
+		LatLng point = new LatLng(myApp.getcurrentLatitude(), myApp.getcurrentLongitude());
 		// 构建Marker图标
 		BitmapDescriptor bitmap = null;
 		bitmap = BitmapDescriptorFactory.fromResource(R.drawable.huaji); // 非推算结果
@@ -744,15 +744,21 @@ public class BActivity extends Activity{
 		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
 		if(sharedPreferences.getInt("WatchPosNo", 0)==1)
 		{
+			Log.e(BActivity.ACTIVITY_TAG, "if");
 			gsLLA[0] = sharedPreferences.getFloat("WatchLatitude",0);
 			gsLLA[1] = sharedPreferences.getFloat("WatchLongitude",0);
 			gsLLA[2] = sharedPreferences.getFloat("WatchAltitude",0);
 			
 		}else
 		{
-			gsLLA[0] = myApp.myLatitude;
-			gsLLA[1] = myApp.myLongitude;
-			gsLLA[2] = myApp.myAltitude;
+			Log.e(BActivity.ACTIVITY_TAG, "else");
+//			gsLLA[0] = myApp.myLatitude;
+//			gsLLA[1] = myApp.myLongitude;
+//			gsLLA[2] = myApp.myAltitude;
+
+			gsLLA[0] = myApp.getcurrentLatitude();
+			gsLLA[1] = myApp.getcurrentLongitude();
+			gsLLA[2] = myApp.getcurrentAltitude();
 		}
 	}
 	

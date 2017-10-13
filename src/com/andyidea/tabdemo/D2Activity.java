@@ -112,11 +112,15 @@ public class D2Activity extends Activity{
 //				TextView1.setText("Latitude: "+myApp.myLatitude+"   "+"Longtitude: "+myApp.myLongitude+"   "+"Altitude: "+myApp.myAltitude+"\\½Ç¶È"+myApp.getAngle()+"\\Ê±¼ä"+myApp.getDelay());			
 				myApp.getAngle();
 				myApp.getDelay();
-							
-				gsLLA[0] = myApp.myLatitude;
-				gsLLA[1] = myApp.myLongitude;
-				gsLLA[2] = myApp.myAltitude;
-							
+
+//				gsLLA[0] = myApp.myLatitude;
+//				gsLLA[1] = myApp.myLongitude;
+//				gsLLA[2] = myApp.myAltitude;
+
+				gsLLA[0] = myApp.getcurrentLatitude();
+				gsLLA[1] = myApp.getcurrentLongitude();
+				gsLLA[2] = myApp.getcurrentAltitude();
+
 				newTLE= new TLE(myApp.getTitle(myApp.counttest),
 						myApp.getTLE1(myApp.counttest),
 						myApp.getTLE2(myApp.counttest));

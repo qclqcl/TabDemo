@@ -6,6 +6,11 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import com.andyidea.tabdemo.EActivity.ButtonOnClickListener;
+import com.andyidea.tabdemo.service.LocationService;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.model.LatLng;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -25,7 +30,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TabHost;
 
 public class MainTabActivity extends TabActivity implements OnCheckedChangeListener{
-	
+	private LocationService mylocationService;
+	private double testAltiude = 0.0;
+
 	private Handler handler;
 	private Runnable runnable;
 	
@@ -51,6 +58,12 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
 
+		mylocationService = new LocationService(getApplicationContext());
+		mylocationService.registerListener(mListener);
+		//注册监听
+		mylocationService.setLocationOption(mylocationService.getDefaultLocationClientOption());
+		mylocationService.start();
+
         RadioButtonE = (Button) findViewById(R.id.radio_button4);
         RadioButtonE.setOnClickListener(new ButtonOnClickListener());
 
@@ -62,7 +75,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 			@Override
 			public void run() {				
 				handler.postDelayed(this, 1000);
-				getTime();						    			    	
+				getTime();
+				mylocationService.stop();
 			}
 		};
 
@@ -108,54 +122,78 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				
 		if(isChecked){
 			switch (buttonView.getId()) {
-			case R.id.radio_button0:												
+			case R.id.radio_button0:
+				mylocationService.start();
+
 				this.mTabHost.setCurrentTabByTag("A_TAB");
 				if ( myApp.handlerB != null ){
 					myApp.handlerB.removeCallbacks(myApp.runnableB); //停止计数器
 				}
-				if ( myApp.handlerC != null ){					
+				if ( myApp.handlerC != null ){
 					myApp.handlerC.removeCallbacks(myApp.runnableC); //停止计数器
 				}
-				if ( myApp.handlerC2 != null ){					
-					myApp.handlerC2.removeCallbacks(myApp.runnableC); //停止计数器
+				if ( myApp.handlerC2 != null ){
+					myApp.handlerC2.removeCallbacks(myApp.runnableC2); //停止计数器
 				}
-				if ( myApp.handlerD != null ){					
+				if ( myApp.handlerD != null ){
 					myApp.handlerD.removeCallbacks(myApp.runnableD); //停止计数器
 				}
 				break;
 			case R.id.radio_button1:
+				mylocationService.start();
+
 				this.mTabHost.setCurrentTabByTag("B_TAB");
 				if ( myApp.handlerB != null ){
-				myApp.handlerB.postDelayed(myApp.runnableB, 0);  //开始计数器
+					myApp.handlerB.postDelayed(myApp.runnableB, 0);  //开始计数器
+				}
+				if ( myApp.handlerC != null ){
+					myApp.handlerC.removeCallbacks(myApp.runnableC); //停止计数器
+				}
+				if ( myApp.handlerC2 != null ){
+					myApp.handlerC2.removeCallbacks(myApp.runnableC2); //停止计数器
+				}
+				if ( myApp.handlerD != null ){
+					myApp.handlerD.removeCallbacks(myApp.runnableD); //停止计数器
 				}
 				break;
 			case R.id.radio_button2:
+				mylocationService.start();
+
 				this.mTabHost.setCurrentTabByTag("C_TAB");
-				if ( myApp.handlerC != null ){
-				myApp.handlerC.postDelayed(myApp.runnableC, 0);  //开始计数器
-				}
-				break;
-			case R.id.radio_button3:
-				this.mTabHost.setCurrentTabByTag("D_TAB");
-				
-				if ( myApp.handlerD != null ){
-					myApp.handlerD.postDelayed(myApp.runnableD, 0);  //开始计数器
-				}
-				
 				if ( myApp.handlerB != null ){
 					myApp.handlerB.removeCallbacks(myApp.runnableB); //停止计数器
 				}
-				if ( myApp.handlerC != null ){					
+				if ( myApp.handlerD != null ){
+					myApp.handlerD.removeCallbacks(myApp.runnableD); //停止计数器
+				}
+				if ( myApp.handlerC != null ){
+					myApp.handlerC.postDelayed(myApp.runnableC, 0);  //开始计数器
+				}
+				if ( myApp.handlerC2 != null ){
+					myApp.handlerC2.postDelayed(myApp.runnableC2, 0);  //开始计数器
+				}
+				break;
+			case R.id.radio_button3:
+				mylocationService.start();
+
+				this.mTabHost.setCurrentTabByTag("D_TAB");
+				if ( myApp.handlerD != null ){
+					myApp.handlerD.postDelayed(myApp.runnableD, 0);  //开始计数器
+				}
+				if ( myApp.handlerB != null ){
+					myApp.handlerB.removeCallbacks(myApp.runnableB); //停止计数器
+				}
+				if ( myApp.handlerC != null ){
 					myApp.handlerC.removeCallbacks(myApp.runnableC); //停止计数器
 				}
-				if ( myApp.handlerC2 != null ){					
-					myApp.handlerC2.removeCallbacks(myApp.runnableC); //停止计数器
+				if ( myApp.handlerC2 != null ){
+					myApp.handlerC2.removeCallbacks(myApp.runnableC2); //停止计数器
 				}
 				break;
 			default:
 				break;
-			}						
-		}		
+			}
+		}
 	}
 
 	class ButtonOnClickListener implements OnClickListener{
@@ -209,5 +247,31 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	}  
 	return super.onKeyDown(keyCode, event);
 	}
+
+	private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+
+			// TODO Auto-generated method stub
+			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+
+				myApp.setCurrentLatitude(location.getLatitude());
+				myApp.setCurrentLongitude(location.getLongitude());
+				myApp.setCurrentRadius(location.getRadius());
+//				myApp.setCurrentAltitude(location.getAltitude());
+
+				testAltiude += 1000.0;
+				myApp.setCurrentAltitude(testAltiude);
+
+/*
+				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
+					myAltitude=location.getAltitude();
+				}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
+					myAltitude=0;
+				}
+*/
+			}
+		}
+	};
 
 }
