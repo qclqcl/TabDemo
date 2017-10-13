@@ -29,6 +29,7 @@ public class LocationApplication extends Application {
 	public Vibrator mVibrator;
 	private LocationManager locationManager;
 	private String locationProvider;
+	private double testAltiude = 0.0;
 
 	public  Handler handlerB,handlerC,handlerC2,handlerD;
 	public  Runnable runnableB,runnableC,runnableC2,runnableD;
@@ -233,7 +234,7 @@ public class LocationApplication extends Application {
 	 * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
 	 *
 	 */
-/*
+
 	public BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
@@ -241,19 +242,19 @@ public class LocationApplication extends Application {
 			// TODO Auto-generated method stub
 			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
 				
-				myLatitude = location.getLatitude();
-				myLongitude = location.getLongitude();
-				myRadius = location.getRadius();
-				myTime = location.getTime();
+				setCurrentLatitude(location.getLatitude());
+				setCurrentLongitude(location.getLongitude());
+				setCurrentRadius(location.getRadius());
+				setCurrentAltitude(location.getAltitude());
 				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
-					myAltitude=location.getAltitude();
+					setCurrentAltitude(location.getAltitude());
 				}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
-					myAltitude=0;
+					setCurrentAltitude(0.0);
 				}
 			}
 		}
 	};
-*/
+
 /*
 	public void getloctioninfo(){
         //获取地理位置管理器

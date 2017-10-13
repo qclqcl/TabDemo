@@ -744,14 +744,12 @@ public class BActivity extends Activity{
 		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
 		if(sharedPreferences.getInt("WatchPosNo", 0)==1)
 		{
-			Log.e(BActivity.ACTIVITY_TAG, "if");
 			gsLLA[0] = sharedPreferences.getFloat("WatchLatitude",0);
 			gsLLA[1] = sharedPreferences.getFloat("WatchLongitude",0);
 			gsLLA[2] = sharedPreferences.getFloat("WatchAltitude",0);
 			
 		}else
 		{
-			Log.e(BActivity.ACTIVITY_TAG, "else");
 //			gsLLA[0] = myApp.myLatitude;
 //			gsLLA[1] = myApp.myLongitude;
 //			gsLLA[2] = myApp.myAltitude;

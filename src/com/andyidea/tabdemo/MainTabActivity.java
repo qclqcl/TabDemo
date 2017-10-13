@@ -30,9 +30,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TabHost;
 
 public class MainTabActivity extends TabActivity implements OnCheckedChangeListener{
-	private LocationService mylocationService;
-	private double testAltiude = 0.0;
-
 	private Handler handler;
 	private Runnable runnable;
 	
@@ -58,11 +55,11 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
 
-		mylocationService = new LocationService(getApplicationContext());
-		mylocationService.registerListener(mListener);
+        myApp = (LocationApplication)getApplication();
+		myApp.locationService.registerListener(myApp.mListener);
 		//注册监听
-		mylocationService.setLocationOption(mylocationService.getDefaultLocationClientOption());
-		mylocationService.start();
+		myApp.locationService.setLocationOption(myApp.locationService.getDefaultLocationClientOption());
+		myApp.locationService.start();
 
         RadioButtonE = (Button) findViewById(R.id.radio_button4);
         RadioButtonE.setOnClickListener(new ButtonOnClickListener());
@@ -76,7 +73,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 			public void run() {				
 				handler.postDelayed(this, 1000);
 				getTime();
-				mylocationService.stop();
+				myApp.locationService.stop();
 			}
 		};
 
@@ -123,7 +120,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		if(isChecked){
 			switch (buttonView.getId()) {
 			case R.id.radio_button0:
-				mylocationService.start();
+				myApp.locationService.start();
 
 				this.mTabHost.setCurrentTabByTag("A_TAB");
 				if ( myApp.handlerB != null ){
@@ -140,7 +137,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				}
 				break;
 			case R.id.radio_button1:
-				mylocationService.start();
+				myApp.locationService.start();
 
 				this.mTabHost.setCurrentTabByTag("B_TAB");
 				if ( myApp.handlerB != null ){
@@ -157,7 +154,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				}
 				break;
 			case R.id.radio_button2:
-				mylocationService.start();
+				myApp.locationService.start();
 
 				this.mTabHost.setCurrentTabByTag("C_TAB");
 				if ( myApp.handlerB != null ){
@@ -174,7 +171,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				}
 				break;
 			case R.id.radio_button3:
-				mylocationService.start();
+				myApp.locationService.start();
 
 				this.mTabHost.setCurrentTabByTag("D_TAB");
 				if ( myApp.handlerD != null ){
@@ -248,30 +245,15 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	return super.onKeyDown(keyCode, event);
 	}
 
-	private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
-		@Override
-		public void onReceiveLocation(BDLocation location) {
-
-			// TODO Auto-generated method stub
-			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-
-				myApp.setCurrentLatitude(location.getLatitude());
-				myApp.setCurrentLongitude(location.getLongitude());
-				myApp.setCurrentRadius(location.getRadius());
-//				myApp.setCurrentAltitude(location.getAltitude());
-
-				testAltiude += 1000.0;
-				myApp.setCurrentAltitude(testAltiude);
-
-/*
-				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
-					myAltitude=location.getAltitude();
-				}else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
-					myAltitude=0;
-				}
-*/
-			}
-		}
-	};
+	/***
+	 * Stop location service
+	 */
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		myApp.locationService.unregisterListener(myApp.mListener); //注销掉监听
+		myApp.locationService.stop(); //停止定位服务
+		super.onStop();
+	}
 
 }

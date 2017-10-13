@@ -47,8 +47,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CActivity extends Activity{
-
-	private static final String ACTIVITY_TAG="CActivity";
 	//定时器的变量初始化
 //	private Handler handler;
 //	private Runnable runnable;
@@ -389,14 +387,12 @@ public class CActivity extends Activity{
 		SharedPreferences sharedPreferences = getSharedPreferences("test", 0);
 		if(sharedPreferences.getInt("WatchPosNo", 0)==1)
 		{
-			Log.e(CActivity.ACTIVITY_TAG, "if");
 			gsLLA[0] = sharedPreferences.getFloat("WatchLatitude",0);
 			gsLLA[1] = sharedPreferences.getFloat("WatchLongitude",0);
 			gsLLA[2] = sharedPreferences.getFloat("WatchAltitude",0);
 			
 		}else
 		{
-			Log.e(CActivity.ACTIVITY_TAG, "else");
 //			gsLLA[0] = myApp.myLatitude;
 //			gsLLA[1] = myApp.myLongitude;
 //			gsLLA[2] = myApp.myAltitude;
