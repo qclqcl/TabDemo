@@ -367,6 +367,7 @@ public class CActivity extends Activity{
 //	 if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
 //	  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //	 }
+		myApp.getloctioninfo();
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
 				myApp.getTLE2(myApp.counttest));

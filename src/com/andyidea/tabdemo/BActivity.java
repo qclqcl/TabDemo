@@ -134,8 +134,8 @@ public class BActivity extends Activity{
 		mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving); 
 		mOption.setCoorType("bd09ll");
 		locService.setLocationOption(mOption);
-		locService.registerListener(listener);
-		locService.start();
+//		locService.registerListener(listener);
+//		locService.start();
 
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");
@@ -406,7 +406,8 @@ public class BActivity extends Activity{
 				BDLocation location = msg.getData().getParcelable("loc");
 				int iscal = msg.getData().getInt("iscalculate");
 				if (location != null) {
-					LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
+//					LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
+					LatLng point = new LatLng(myApp.myLatitude, myApp.myLongitude);
 					// 构建Marker图标
 					BitmapDescriptor bitmap = null;
 					if (iscal == 0) {
@@ -685,6 +686,8 @@ public class BActivity extends Activity{
 	protected void onResume() {
 		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
 		mMapView.onResume();
+		mBaiduMap.clear();
+		myApp.getloctioninfo();
 
 		newTLE= new TLE(myApp.getTitle(myApp.counttest),
 				myApp.getTLE1(myApp.counttest),
@@ -694,7 +697,18 @@ public class BActivity extends Activity{
 		//gsLLA[2] = myApp.myAltitude;
 		initgslla();
 		timer = new Time();
-		
+
+		LatLng point = new LatLng(myApp.myLatitude, myApp.myLongitude);
+		// 构建Marker图标
+		BitmapDescriptor bitmap = null;
+		bitmap = BitmapDescriptorFactory.fromResource(R.drawable.huaji); // 非推算结果
+		// 构建MarkerOption，用于在地图上添加Marker
+		OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+		// 在地图上添加Marker，并显示
+		mBaiduMap.addOverlay(option);
+//		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
+
+
 		//timer.add(Time.HOUR,-12);
 		
 		llas= null;//TLECompute.getMapLead(newTLE,timer);
@@ -761,6 +775,13 @@ public class BActivity extends Activity{
 
 	}
 	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		LatLng point = new LatLng(myApp.myLatitude, myApp.myLongitude);
+		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));//以point点为中心显示
+	}
+
 	/**
 	 * 封装定位结果和时间的实体类
 	 * 

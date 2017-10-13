@@ -201,7 +201,7 @@ public class LocationApplication extends Application {
 		//注册监听
 //		locationService.setLocationOption(locationService.getOption());
 //		locationService.start();
-//      getloctioninfo();
+        getloctioninfo();
     }
     /*****
 	 *
@@ -228,7 +228,7 @@ public class LocationApplication extends Application {
 			}
 		}
 	};
-/*
+
 	public void getloctioninfo(){
         //获取地理位置管理器
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -250,8 +250,8 @@ public class LocationApplication extends Application {
         	//不为空,显示地理位置经纬度
         	myLatitude = location.getLatitude();
 			myLongitude = location.getLongitude();
-			myAltitude = location.getAltitude();
+			myAltitude += location.getAltitude();
         }
 	}
-*/
+
 }

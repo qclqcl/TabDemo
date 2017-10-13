@@ -346,6 +346,7 @@ public class DActivity extends Activity{
 		//gsLLA[0] = myApp.myLatitude;
 		//gsLLA[1] = myApp.myLongitude;
 		//gsLLA[2] = myApp.myAltitude;
+    	myApp.getloctioninfo();
 		initgslla();			
 		//newTLE= new TLE(myApp.getTitle(myApp.counttest),
 		//		myApp.getTLE1(myApp.counttest),
