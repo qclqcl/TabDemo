@@ -127,7 +127,9 @@ public class BActivity extends Activity{
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-		mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15));
+//		比例尺            {"10m", "20m", "50m", "100m", "200m", "500m", "1km", "2km", "5km", "10km", "20km", "25km", "50km", "100km", "200km", "500km", "1000km", "2000km"} 
+//		Level依次为：20、           19、           18、              17、              16、              15、            14、           13、           12、           11、              10、               9、                 8、                      7、                      6、                 5、                   4、                       3
+		mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(6));//设置缩放级别
 
 		Buttonleft = (Button)findViewById(R.id.Buttonleft);
 		Buttonleft.setText("<<");

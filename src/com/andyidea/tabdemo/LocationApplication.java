@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -30,6 +31,7 @@ public class LocationApplication extends Application {
 	private LocationManager locationManager;
 	private String locationProvider;
 	private double testAltiude = 0.0;
+	private static final String ACTIVITY_TAG="LocationApplication";
 
 	public  Handler handlerB,handlerC,handlerC2,handlerD;
 	public  Runnable runnableB,runnableC,runnableC2,runnableD;
@@ -241,7 +243,32 @@ public class LocationApplication extends Application {
 
 			// TODO Auto-generated method stub
 			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-				
+/*
+				if (location.getLocType() == BDLocation.TypeNone){// 无效定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeNone");
+				}
+				if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeGpsLocation");
+				}
+				if (location.getLocType() == BDLocation.TypeNetWorkException){// 网络连接失败
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeNetWorkException");
+				}
+				if (location.getLocType() == BDLocation.TypeOffLineLocation){// 离线定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeOffLineLocation");
+				}
+				if (location.getLocType() == BDLocation.TypeOffLineLocationNetworkFail){// 网络请求失败,基站离线定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeOffLineLocationNetworkFail");
+				}
+				if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeNetWorkLocation");
+				}
+				if (location.getLocType() == BDLocation.TypeCacheLocation){// 缓存定位结果
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeCacheLocation");
+				}
+				if (location.getLocType() == BDLocation.TypeServerError){// server定位失败
+					Log.e(LocationApplication.ACTIVITY_TAG, "TypeServerError");
+				}
+*/
 				setCurrentLatitude(location.getLatitude());
 				setCurrentLongitude(location.getLongitude());
 				setCurrentRadius(location.getRadius());
