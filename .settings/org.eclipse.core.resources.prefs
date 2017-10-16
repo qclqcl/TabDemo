@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/com/andyidea/tabdemo/BActivity.java=UTF-8
 encoding//src/com/andyidea/tabdemo/EditSatActivity.java=UTF-8
+encoding//src/com/andyidea/tabdemo/download/DownLoadUtils.java=UTF-8
+encoding//src/com/andyidea/tabdemo/download/DownloadApk.java=UTF-8
 encoding//src/com/andyidea/tabdemo/service/LocationService.java=UTF-8
 encoding//src/com/andyidea/tabdemo/service/Utils.java=UTF-8
+encoding//src/com/andyidea/tabdemo/updateutil/SystemParams.java=UTF-8

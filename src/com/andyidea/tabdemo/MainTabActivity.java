@@ -29,6 +29,10 @@ import android.widget.RadioButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TabHost;
 
+import com.andyidea.tabdemo.download.DownloadApk;
+import com.andyidea.tabdemo.download.DownLoadUtils;
+import com.andyidea.tabdemo.download.ApkInstallReceiver;
+
 public class MainTabActivity extends TabActivity implements OnCheckedChangeListener{
 	private Handler handler;
 	private Runnable runnable;
@@ -54,6 +58,18 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.maintabs);
+
+        //1.注册下载广播接收器
+        DownloadApk.registerBroadcast(this);
+        //2.删除已存在的Apk
+        DownloadApk.removeFile(this);
+
+        //3.如果手机已经启动下载程序，执行downloadApk。否则跳转到设置界面
+        if (DownLoadUtils.getInstance(getApplicationContext()).canDownload()) {
+            DownloadApk.downloadApk(getApplicationContext(), "https://www.4001149114.com/NLJJ/app/APP171015171229029.apk", "卫星跟踪更新", "卫星跟踪");
+        } else {
+            DownLoadUtils.getInstance(getApplicationContext()).skipToDownloadManager();
+        }
 
         myApp = (LocationApplication)getApplication();
 		myApp.locationService.registerListener(myApp.mListener);
