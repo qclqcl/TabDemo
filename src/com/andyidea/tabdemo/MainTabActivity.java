@@ -98,7 +98,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         setContentView(R.layout.maintabs);
 
         checkupdateurl = "https://www.4001149114.com/NLJJ/ddapp/updateapp?appname=SATT";
-//        new UpdateTLETask().execute(4);
+        new UpdateTLETask().execute(4);
 
         myApp = (LocationApplication)getApplication();
 		myApp.locationService.registerListener(myApp.mListener);
@@ -244,7 +244,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				new android.content.DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						Toast.makeText(MainTabActivity.this, "正在下载......", Toast.LENGTH_LONG).show();
+						Toast.makeText(MainTabActivity.this, "开始下载", Toast.LENGTH_SHORT).show();
 						downloadApk(downloadUrl);
 						arg0.dismiss();
 					}
@@ -252,6 +252,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
+				Toast.makeText(MainTabActivity.this, "取消下载", Toast.LENGTH_SHORT).show();
 				arg0.dismiss();
 			}
 		} );

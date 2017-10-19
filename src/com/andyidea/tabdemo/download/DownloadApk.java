@@ -59,6 +59,7 @@ public class DownloadApk {
                 start(context, url, title,appName);
             }else {
                 Log.d(context.getPackageName(), "apk is already downloading");
+                start(context, url, title,appName);
             }
         } else {
         	//不存在downloadId，没有下载过APK
