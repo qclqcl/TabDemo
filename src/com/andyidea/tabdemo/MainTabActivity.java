@@ -94,8 +94,10 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private String serverVersion;
 	private String downloadUrl;
 	private InputStream InputSteam;
+	private static boolean startflag = false;
 
 	private boolean startdownload = false;
+	private boolean dowloadsizebiggerthannull = false;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,12 +128,30 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				getTime();
 //				myApp.locationService.stop();
 
+				if(!startflag)
+				{
+					if(isNetworkConnected()){
+						new UpdateTLETask().execute(4);
+						try {
+				            Thread.sleep(500);
+				        } catch (InterruptedException e) {
+				            e.printStackTrace();
+				        }
+					}
+					else{
+						serverVersion = null;
+					}
+					updateapk();
+					startflag = true;
+				}
+
 				if(startdownload == true){
 					size = DownLoadUtils.getInstance(getApplicationContext()).getDownloadSize(DownloadApk.id);
 					sizeTotal = DownLoadUtils.getInstance(getApplicationContext()).getDownloadSizeTotal(DownloadApk.id);
 					progress = (int) (100 * Float.valueOf(size)/Float.valueOf(sizeTotal));
 
-					if(progress >= 0 && progress < 100){
+					if(progress > 0 && progress < 100){
+						dowloadsizebiggerthannull = true;
 						if(mtoast!=null){
 					        mtoast.setText("已下载："+progress+"%");
 					    }
@@ -140,10 +160,11 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 					    }
 					    mtoast.show(); //显示toast信息
 					}
-					else{
+					else if(progress == 100){
 						mtoast.cancel();
 						Toast.makeText(MainTabActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
 						startdownload = false;
+						dowloadsizebiggerthannull = false;
 					}
 				}
 			}
@@ -271,7 +292,11 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				new android.content.DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						Toast.makeText(MainTabActivity.this, "开始下载", Toast.LENGTH_SHORT).show();
+						if(isWifiConnected()){
+							Toast.makeText(MainTabActivity.this, "Wifi网络下，开始自动下载", Toast.LENGTH_SHORT).show();
+						}else{
+							Toast.makeText(MainTabActivity.this, "移动网络下，请手动选择是否下载", Toast.LENGTH_SHORT).show();
+						}
 						downloadApk(downloadUrl);
 						arg0.dismiss();
 						startdownload = true;
@@ -427,6 +452,17 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	    return false;
 	}
 
+	public boolean isWifiConnected() {
+		ConnectivityManager mConnectivityManager = (ConnectivityManager) this
+			.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWiFiNetworkInfo = mConnectivityManager
+			.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		if (mWiFiNetworkInfo.isConnected()) {
+			return true;
+		}
+		return false;
+	}
+
 	class ButtonOnClickListener implements OnClickListener{
 		
 		@Override
@@ -438,7 +474,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 					MainTabActivity.this.startActivity(intent);
 					break;
 				case R.id.radio_button4:
-					if(startdownload == false){
+					if(dowloadsizebiggerthannull == false){
 						if(isNetworkConnected()){
 							new UpdateTLETask().execute(4);
 							try {

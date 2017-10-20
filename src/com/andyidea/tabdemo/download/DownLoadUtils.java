@@ -64,7 +64,7 @@ public class DownLoadUtils {
         downloadRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         /**设置漫游状态下是否可以下载*/
-        downloadRequest.setAllowedOverRoaming(false);
+        downloadRequest.setAllowedOverRoaming(true);
         /**如果我们希望下载的文件可以被系统的Downloads应用扫描到并管理，
         我们需要调用Request对象的setVisibleInDownloadsUi方法，传递参数true.*/
         downloadRequest.setVisibleInDownloadsUi(true);
