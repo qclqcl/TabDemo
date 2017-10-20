@@ -438,19 +438,20 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 					MainTabActivity.this.startActivity(intent);
 					break;
 				case R.id.radio_button4:
-
-					if(isNetworkConnected()){
-						new UpdateTLETask().execute(4);
-						try {
-				            Thread.sleep(500);
-				        } catch (InterruptedException e) {
-				            e.printStackTrace();
-				        }
+					if(startdownload == false){
+						if(isNetworkConnected()){
+							new UpdateTLETask().execute(4);
+							try {
+					            Thread.sleep(500);
+					        } catch (InterruptedException e) {
+					            e.printStackTrace();
+					        }
+						}
+						else{
+							serverVersion = null;
+						}
+						updateapk();
 					}
-					else{
-						serverVersion = null;
-					}
-					updateapk();
 					break;
 			   default:
 					break;
