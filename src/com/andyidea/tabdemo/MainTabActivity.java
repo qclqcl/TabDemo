@@ -54,6 +54,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TabHost;
@@ -81,6 +82,10 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private Button RadioButtonE;
 	private Button RadioButtonHelp;
 	Intent intent = new Intent();
+	private Toast mtoast;
+	private int progress;
+	private String size;
+	private String sizeTotal;
 
 	//从网络中获取apk更新信息的相关变量
 	private String checkupdateurl;
@@ -90,6 +95,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private String downloadUrl;
 	private InputStream InputSteam;
 
+	private boolean startdownload = false;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +125,27 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 				handler.postDelayed(this, 1000);
 				getTime();
 //				myApp.locationService.stop();
+
+				if(startdownload == true){
+					size = DownLoadUtils.getInstance(getApplicationContext()).getDownloadSize(DownloadApk.id);
+					sizeTotal = DownLoadUtils.getInstance(getApplicationContext()).getDownloadSizeTotal(DownloadApk.id);
+					progress = (int) (100 * Float.valueOf(size)/Float.valueOf(sizeTotal));
+
+					if(progress >= 0 && progress < 100){
+						if(mtoast!=null){
+					        mtoast.setText("已下载："+progress+"%");
+					    }
+					    else{
+					        mtoast=Toast.makeText(getApplicationContext(),"已下载："+progress+"%", Toast.LENGTH_SHORT);
+					    }
+					    mtoast.show(); //显示toast信息
+					}
+					else{
+						mtoast.cancel();
+						Toast.makeText(MainTabActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
+						startdownload = false;
+					}
+				}
 			}
 		};
 
@@ -247,6 +274,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 						Toast.makeText(MainTabActivity.this, "开始下载", Toast.LENGTH_SHORT).show();
 						downloadApk(downloadUrl);
 						arg0.dismiss();
+						startdownload = true;
 					}
 				});
 		dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {

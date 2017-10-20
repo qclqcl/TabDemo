@@ -22,6 +22,7 @@ import com.andyidea.tabdemo.updateutil.SystemParams;
 public class DownloadApk {
 
     private static ApkInstallReceiver apkInstallReceiver;
+    public static long id;
 
     /**
      * 下载APK文件
@@ -77,7 +78,7 @@ public class DownloadApk {
     private static void start(Context context, String url, String title,String appName) {
 
         if(hasSDKCard()) {
-            long id = DownLoadUtils.getInstance(context).download(url,
+            id = DownLoadUtils.getInstance(context).download(url,
                     title, "下载完成后点击打开", appName);
             SystemParams.getInstance().setLong(DownloadManager.EXTRA_DOWNLOAD_ID,id);
         } else {

@@ -101,6 +101,50 @@ public class DownLoadUtils {
     }
 
     /**
+     * 获取文件已经下载大小
+     * @param downloadId
+     * @return
+     */
+    public String getDownloadSize(long downloadId) {
+
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
+        Cursor c = mDownloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    return c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                }
+            } finally {
+                c.close();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取文件总大小
+     * @param downloadId
+     * @return
+     */
+    public String getDownloadSizeTotal(long downloadId) {
+
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
+        Cursor c = mDownloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    return c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                }
+            } finally {
+                c.close();
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * 获取文件保存的地址
      * @param downloadId
      * @return
